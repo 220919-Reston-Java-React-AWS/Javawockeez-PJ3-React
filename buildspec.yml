@@ -3,12 +3,13 @@ phases:
   build:
     # made from jenkins
     commands:
-      - cd social-media-spring-main
-      - mvn clean package
+      - cd social-media-react-main
+      - npm ci
+      - npm run build
 artifacts:
   files:
-    - social-media-spring-main/Dockerfile
-    - social-media-spring-main/target/social-media-0.0.1-SNAPSHOT.jar
+    - social-media-react-main/Dockerfile
+    - social-media-react-main/build/**/*
   # 
   discard-paths: yes
   
