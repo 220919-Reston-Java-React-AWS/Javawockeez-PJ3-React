@@ -4,14 +4,13 @@ phases:
     # made from jenkins
     commands:
       - cd social-media-react-main
-      - npm 
       - npm ci
-      - npm run build
+      # - npm run build
 artifacts:
   files:
     - social-media-react-main/Dockerfile
-    - social-media-react-main/build/**/*
-    #- social-media-react-main/**/*
+    # - social-media-react-main/build/**/*
+    - social-media-react-main/**/*
   # 
   discard-paths: yes
   
