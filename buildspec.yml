@@ -9,6 +9,7 @@ artifacts:
   files:
     - Dockerfile
     - build/**/*
+    - nginx/nginx.conf
     
   discard-paths: yes
   
