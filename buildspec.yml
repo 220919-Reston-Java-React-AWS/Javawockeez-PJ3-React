@@ -4,7 +4,6 @@ phases:
     # made from jenkins
     commands:
       - cd social-media-react-main
-      - mvn clean package
 artifacts:
   files:
     - social-media-react-main/Dockerfile
