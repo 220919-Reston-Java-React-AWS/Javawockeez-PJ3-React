@@ -17,5 +17,5 @@ FROM node:18
 # Expose the port on which the app will be running
 EXPOSE 3000
 # Start the app
-# CMD [ "npx", "serve", "build" ]
-CMD ["npm", "start"]
+CMD [ "npx", "serve", "build" ]
+#CMD ["npm", "start"]
