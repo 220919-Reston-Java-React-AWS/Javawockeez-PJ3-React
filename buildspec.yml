@@ -5,7 +5,7 @@ phases:
     commands:
       - cd social-media-react-main
       - npm 
-      - npm install npx
+      - npm ci
       - npm run build
 artifacts:
   files:
