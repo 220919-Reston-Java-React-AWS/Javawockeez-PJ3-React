@@ -5,10 +5,11 @@ phases:
     commands:
       - npm ci
       - npm run build
+      - aws s3 sync "build/" "s3://javawockeez-capstone-project3-react"
 artifacts:
   files:
     #Dockerfile
-    - "**/*"
+    - build/**/*
     #nginx/nginx.conf
     
   
