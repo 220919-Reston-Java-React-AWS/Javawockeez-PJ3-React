@@ -1,0 +1,20 @@
+:root {
+    --background-color: white;
+    --font-color: black;
+    --link-color: cornflowerblue;
+  }
+  
+  [data-theme="dark"] {
+    --background-color: black;
+    --font-primary: white;
+    --text-secondary: lightblue;
+  }
+
+  body {
+    background-color: var(--background-color);
+    color: var(--font-color);
+  }
+
+  a {
+    color: var(--link-color);
+  }
