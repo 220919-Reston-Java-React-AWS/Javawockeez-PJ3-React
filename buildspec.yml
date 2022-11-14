@@ -7,8 +7,8 @@ phases:
       - npm run build
 artifacts:
   files:
-    - Dockerfile
+    #Dockerfile
     - build/**/*
-    - nginx/nginx.conf
+    #nginx/nginx.conf
     
   
