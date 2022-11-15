@@ -15,7 +15,6 @@ export const PostFeed = () => {
     const { user } = useContext(UserContext);
     let welcomeText = 'Welcome!'
     let postForm = <></>;
-    let noPostsText = <></>;
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -78,7 +77,7 @@ export const PostFeed = () => {
 
        let noPostsText = <></>;
 
-       if(post.length === 0) {
+       if(posts.length === 0) {
             noPostsText = 
             <h2 style={{textAlign: 'center', marginTop: '3%', color: 'gray'}}>
                 There are no posts, share your thoughts!
