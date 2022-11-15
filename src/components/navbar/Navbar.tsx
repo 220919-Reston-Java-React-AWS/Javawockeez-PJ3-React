@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
+import DarkMode from '../DarkMode/DarkMode';
 
 export default function Navbar() {
 
@@ -48,6 +49,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Revature Social
           </Typography>
+          <DarkMode />
             <div>
             <Tooltip disableFocusListener disableTouchListener title={tipTitle}>
             <IconButton
