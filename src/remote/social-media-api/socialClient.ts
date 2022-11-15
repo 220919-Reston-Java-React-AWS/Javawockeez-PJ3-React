@@ -5,13 +5,13 @@ import axios from 'axios';
 const socialClient = axios.create({
   withCredentials: true,
   //baseURL: 'http://project3-env.eba-sgpkascp.us-west-2.elasticbeanstalk.com',
-  //baseURL: 'http://localhost:8080',
-  baseURL: 'http://220919javawockeezcapstonebackend-env.eba-gtdtyrfr.us-east-1.elasticbeanstalk.com',
+  baseURL: 'http://localhost:8080',
+  //baseURL: 'http://220919javawockeezcapstonebackend-env.eba-gtdtyrfr.us-east-1.elasticbeanstalk.com',
   headers: {
     'Content-Type': 'application/json',
-    //'Access-Control-Allow-Origin': 'http://localhost:8080',
+    'Access-Control-Allow-Origin': 'http://localhost:8080',
     //'Access-Control-Allow-Origin': 'http://project3-env.eba-sgpkascp.us-west-2.elasticbeanstalk.com:8080',
-    'Access-Control-Allow-Origin': 'http://220919javawockeezcapstonebackend-env.eba-gtdtyrfr.us-east-1.elasticbeanstalk.com:8080'
+    //'Access-Control-Allow-Origin': 'http://220919javawockeezcapstonebackend-env.eba-gtdtyrfr.us-east-1.elasticbeanstalk.com:8080'
 
   },
 });

@@ -80,7 +80,6 @@ export const PostFeed = () => {
         <>
            <Navbar />
            <Container maxWidth="xl" sx={{
-                backgroundColor: '#fff',
                 height: 'auto'
             }}>
                 <h2 style={{textAlign: 'center'}}>{ welcomeText }</h2>

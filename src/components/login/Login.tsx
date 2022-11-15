@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import { apiLogin } from '../../remote/social-media-api/auth.api';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
+import DarkMode from '../DarkMode/DarkMode';
 
 
 const theme = createTheme();
@@ -34,7 +35,6 @@ export default function Login() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -90,6 +90,5 @@ export default function Login() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
   );
 }
