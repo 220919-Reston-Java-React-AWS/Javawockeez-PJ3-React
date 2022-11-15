@@ -12,56 +12,61 @@ import { useNavigate } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const { user, setUser } = useContext(UserContext);
-    const [loggedIn, setLoggedIn] = useState(<></>);
-    const [tipTitle, setTipTitle] = useState('');
-    
-    
-    useEffect(() => {
-        if(user) {
-            setLoggedIn(<LogoutIcon />);
-            setTipTitle('Logout');
-        } else {
-            setLoggedIn(<LoginIcon />);
-            setTipTitle('Login');
-        }
-    }, [user]);
+  const { user, setUser } = useContext(UserContext);
+  const [loggedIn, setLoggedIn] = useState(<></>);
+  const [tipTitle, setTipTitle] = useState('');
+  
+  
+  useEffect(() => {
+      if(user) {
+          setLoggedIn(<LogoutIcon />);
+          setTipTitle('Logout');
+      } else {
+          setLoggedIn(<LoginIcon />);
+          setTipTitle('Login');
+      }
+  }, [user]);
 
-    function handleAuth() {
-        if(user) {
-            apiLogout();
-            setUser();
-        } else {
-           navigate('/login'); 
-        }
-    } 
+  function handleAuth() {
+      if(user) {
+          apiLogout();
+          setUser();
+      } else {
+          navigate('/login'); 
+      }
+  } 
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="transparent">
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Revature Social
+            <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
+              Revature Social
+            </Link>
           </Typography>
-            <div>
-            <Tooltip disableFocusListener disableTouchListener title={tipTitle}>
-            <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={() => handleAuth()}
-                color="inherit"
-            >
-                {loggedIn}
-            </IconButton>
-            </Tooltip>
-            </div>
+
+          <div>
+          <Tooltip disableFocusListener disableTouchListener title={tipTitle}>
+          <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={() => handleAuth()}
+              color="inherit"
+          >
+              {loggedIn}
+          </IconButton>
+          </Tooltip>
+          </div>
+
         </Toolbar>
       </AppBar>
     </Box>
