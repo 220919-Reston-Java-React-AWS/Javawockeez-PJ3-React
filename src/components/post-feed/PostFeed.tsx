@@ -76,14 +76,13 @@ export const PostFeed = () => {
         fetchData()
        }, []);
 
-       let noPostsText = <></>;
 
-       if(post.length === 0) {
-            noPostsText = 
-            <h2 style={{textAlign: 'center', marginTop: '3%', color: 'gray'}}>
-                There are no posts, share your thoughts!
-            </h2>;
-       }
+    if(posts.length === 0) {
+        noPostsText = 
+        <h2 style={{textAlign: 'center', marginTop: '3%', color: 'gray'}}>
+            There are no posts, share your thoughts!
+        </h2>;
+    }
     
     return (
         <>
