@@ -11,18 +11,34 @@ import { apiUpsertPost } from '../../remote/social-media-api/post.api';
 
 
 export const PostFeed = () => {  
-    const [post, setPosts] = useState<Post[]>([])
+    const [posts, setPosts] = useState<Post[]>([])
     const { user } = useContext(UserContext);
     let welcomeText = 'Welcome!'
     let postForm = <></>;
+    let noPostsText = <></>;
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    let payload = new Post(0, data.get('postText')?.toString() || '', data.get('postImage')?.toString() || '', [], user);
-    await apiUpsertPost(payload);
-    fetchData();
-  }
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const data = new FormData(event.currentTarget);
+        event.currentTarget.reset();
+
+        let payload = new Post(0, data.get('postText')?.toString() || '', data.get('postImage')?.toString() || '', [], user);
+        await apiUpsertPost(payload);
+        fetchData();
+    }
+
+    const fetchData = async () => {
+        const result = await apiGetAllPosts()
+        setPosts(result.payload.reverse())
+    }
+
+    const handlePostRemoval = (post:Post) => {
+        setPosts( posts.filter(e => e !== post) )
+    }
+
+    useEffect(() => {
+        fetchData()
+    }, []);
 
     if (user) {
         postForm = <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -52,10 +68,6 @@ export const PostFeed = () => {
         
         welcomeText = `Welcome, ${user.firstName}!`
     }
-    const fetchData = async () => {
-        const result = await apiGetAllPosts()
-        setPosts(result.payload.reverse())
-    }
 
     useEffect(() => {
         //scroll to top on page load
@@ -77,7 +89,6 @@ export const PostFeed = () => {
         <>
            <Navbar />
            <Container maxWidth="xl" sx={{
-                backgroundColor: '#fff',
                 height: 'auto'
             }}>
                 <h2 style={{textAlign: 'center'}}>{ welcomeText }</h2>
@@ -85,8 +96,8 @@ export const PostFeed = () => {
             </Container> 
             <Grid container justifyContent={"center"}>
                 <Grid item sx={{width: '60%', mb: '20px'}} >
-                    {post.map((item) =>(
-                    <PostCard post={item} key={item.id}/>
+                    {posts.map((item) =>(
+                    <PostCard post={item} key={item.id} postRemoval={handlePostRemoval}/>
                 ))
                 }
                 </Grid> 

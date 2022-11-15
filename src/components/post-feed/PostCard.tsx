@@ -19,18 +19,21 @@ import InsertCommentIcon from '@mui/icons-material/InsertComment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import TextField from '@mui/material/TextField';
-import { apiUpsertPost } from '../../remote/social-media-api/post.api';
+import { apiDeletePost, apiUpsertPost } from '../../remote/social-media-api/post.api';
 import { UserContext } from '../../context/user.context';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Popup from 'reactjs-popup';
 
 import "./PostCard.css"
 import { Link } from "react-router-dom";
 
 interface postProps {
     post: Post,
-    key: number
+    key: number,
+    postRemoval?:(post:Post) => void,
 }
 
 
@@ -50,24 +53,58 @@ export const PostCard = (props: postProps) => {
   const { user } = useContext(UserContext);
   const [expanded, setExpanded ] = React.useState(false);
 
+  // It's ridiculous, but it works
+  const [dummyHook, setDummyHook] = React.useState(false);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   let media = <></>;
   let commentForm = <></>;
+  let commentEditForm = <></>;
+
 
   const handleComment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    event.currentTarget?.reset(); // If this isn't right here, it doesn't work??
+    
     props.post.comments.push(new Post(0, data.get('commentText')?.toString() || '', '', [], user));
+
     let payload = props.post;
     await apiUpsertPost(payload);
+
+    //event.currentTarget?.reset();
+    setDummyHook(!dummyHook)
   }
 
-  const onClickEdit = (event: React.MouseEvent) => {
-    alert(event.currentTarget.id)
+  const handleEdit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    props.post.text = data.get('commentText')?.toString() || '';
+
+    let payload = props.post;
+    await apiUpsertPost(payload);
+
+    setDummyHook(!dummyHook)
   }
+
+  const handleDelete = async (event: React.FormEvent) => {
+    let payload = props.post;
+    await apiDeletePost(payload);
+
+    if (props.postRemoval) {props.postRemoval(props.post)}
+
+    alert('Post deleted successfully');
+  }
+
+  const handleCommentRemoval = (comment:Post) => {
+    props.post.comments = props.post.comments.filter( e => e !== comment )
+    setDummyHook(!dummyHook);
+}
+
 
   commentForm = 
   <Paper
@@ -88,6 +125,26 @@ export const PostCard = (props: postProps) => {
       </IconButton>
  </Paper>
 
+ commentEditForm = 
+ <Popup trigger={<p id={`${props.post.id}`}>Edit post</p>}>
+ <Card>
+     <Box component='form' onSubmit={handleEdit} noValidate sx={{ mt: 1 }}>
+     <InputBase
+         sx={{ ml: 1, flex: 1 }}
+         id='commentText'
+         name='commentText'
+         defaultValue={props.post.text}
+         inputProps={{ 'aria-label': 'Make a comment' }}
+       />
+       <IconButton type="submit" sx={{ p: '10px' }} aria-label="submit">
+         <AddCircleIcon color="warning" />
+       </IconButton>
+       <IconButton type="button" onClick={handleDelete} sx={{ p: '10px' }} aria-label="submit">
+         <DeleteIcon sx={{ color: "rgb(100, 100, 150)" }} />
+       </IconButton>
+     </Box>
+ </Card>
+</Popup>
 
   if (props.post.imageUrl) {
     media = <CardMedia
@@ -98,12 +155,11 @@ export const PostCard = (props: postProps) => {
   />
   }
 
-
   return (
     <Card sx={{maxWidth:"100%", marginTop: "3%" }}>
       
     <CardHeader
-      title={props.post.author.firstName}
+      title={props.post.author ? props.post.author.firstName : "Anonymous"}
       avatar={
           <Avatar sx={{ bgcolor: '#ed6c02' }} aria-label="recipe">
             <Link to={`/profile/${props.post.author.id}`} style={{ textDecoration: 'none', color: 'white' }}>
@@ -111,6 +167,7 @@ export const PostCard = (props: postProps) => {
             </Link>
           </Avatar>
         }
+
         /> 
       { media }
       <CardContent>
@@ -121,7 +178,9 @@ export const PostCard = (props: postProps) => {
 
       <div className="card-footer">
 
-        <a onClick={onClickEdit} id={`${props.post.id}`}>Edit post</a>
+        {/* npm i reactjs-popup */}
+        {user?.id==props.post.author.id ? commentEditForm : null}
+        
 
       <CardActions disableSpacing>
           <ExpandMore
@@ -140,7 +199,7 @@ export const PostCard = (props: postProps) => {
           <Grid container justifyContent={"center"}>
                 <Grid item sx={{width: '100%'}} >
                     {props.post.comments.map((item) =>(
-                    <PostCard post={item} key={item.id}/>
+                    <PostCard post={item} key={item.id} postRemoval={handleCommentRemoval}/>
                 ))
                 }
                 </Grid> 

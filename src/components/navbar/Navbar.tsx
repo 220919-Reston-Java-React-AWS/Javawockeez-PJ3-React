@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 import { Link } from 'react-router-dom';
+import DarkMode from '../DarkMode/DarkMode';
 
 export default function Navbar() {
 
@@ -52,21 +53,21 @@ export default function Navbar() {
             </Link>
           </Typography>
 
-          <div>
-          <Tooltip disableFocusListener disableTouchListener title={tipTitle}>
-          <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={() => handleAuth()}
-              color="inherit"
-          >
-              {loggedIn}
-          </IconButton>
-          </Tooltip>
-          </div>
-
+          <DarkMode />
+            <div>
+            <Tooltip disableFocusListener disableTouchListener title={tipTitle}>
+            <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => handleAuth()}
+                color="inherit"
+            >
+                {loggedIn}
+            </IconButton>
+            </Tooltip>
+            </div>
         </Toolbar>
       </AppBar>
     </Box>
