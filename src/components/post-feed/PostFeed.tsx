@@ -20,6 +20,8 @@ export const PostFeed = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
+        event.currentTarget.reset();
+
         let payload = new Post(0, data.get('postText')?.toString() || '', data.get('postImage')?.toString() || '', [], user);
         await apiUpsertPost(payload);
         fetchData();

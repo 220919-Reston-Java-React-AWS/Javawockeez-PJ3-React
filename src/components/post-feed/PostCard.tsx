@@ -67,18 +67,26 @@ export const PostCard = (props: postProps) => {
   const handleComment = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    event.currentTarget?.reset(); // If this isn't right here, it doesn't work??
+    
     props.post.comments.push(new Post(0, data.get('commentText')?.toString() || '', '', [], user));
+
     let payload = props.post;
     await apiUpsertPost(payload);
+
+    //event.currentTarget?.reset();
     setDummyHook(!dummyHook)
   }
 
   const handleEdit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     const data = new FormData(event.currentTarget);
     props.post.text = data.get('commentText')?.toString() || '';
+
     let payload = props.post;
     await apiUpsertPost(payload);
+
     setDummyHook(!dummyHook)
   }
 
@@ -92,7 +100,7 @@ export const PostCard = (props: postProps) => {
   }
 
   const handleCommentRemoval = (comment:Post) => {
-    props.post.comments.filter( e => e !== comment )
+    props.post.comments = props.post.comments.filter( e => e !== comment )
     setDummyHook(!dummyHook);
 }
 
