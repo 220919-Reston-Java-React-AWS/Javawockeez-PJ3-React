@@ -2,7 +2,7 @@ import * as React from "react";
 import { useContext } from "react";
 import styled from "styled-components";
 import Post from "../../models/Post";
-import { Box, Container, Button, Paper, Grid } from '@mui/material';
+import { Box, Container, Button, Paper, Grid} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -28,6 +28,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Popup from 'reactjs-popup';
 
 import "./PostCard.css"
+import { Link } from "react-router-dom";
 
 interface postProps {
     post: Post,
@@ -161,7 +162,9 @@ export const PostCard = (props: postProps) => {
       title={props.post.author ? props.post.author.firstName : "Anonymous"}
       avatar={
           <Avatar sx={{ bgcolor: '#ed6c02' }} aria-label="recipe">
-            <PersonIcon/>
+            <Link to={`/profile/${props.post.author.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+              <PersonIcon style={{ textDecoration: 'none' }}/>
+            </Link>
           </Avatar>
         }
 

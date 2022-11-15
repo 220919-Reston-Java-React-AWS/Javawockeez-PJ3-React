@@ -69,12 +69,21 @@ export const PostFeed = () => {
         welcomeText = `Welcome, ${user.firstName}!`
     }
 
-    if(posts.length === 0) {
-        noPostsText = 
-        <h2 style={{textAlign: 'center', marginTop: '3%', color: 'gray'}}>
-            There are no posts, share your thoughts!
-        </h2>;
-    }
+    useEffect(() => {
+        //scroll to top on page load
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        
+        fetchData()
+       }, []);
+
+       let noPostsText = <></>;
+
+       if(post.length === 0) {
+            noPostsText = 
+            <h2 style={{textAlign: 'center', marginTop: '3%', color: 'gray'}}>
+                There are no posts, share your thoughts!
+            </h2>;
+       }
     
     return (
         <>
