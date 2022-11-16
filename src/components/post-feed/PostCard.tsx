@@ -164,7 +164,7 @@ export const PostCard = (props: postProps) => {
     <Card sx={{maxWidth:"100%", marginTop: "3%" }}>
       
     <CardHeader
-      title={props.post.author ? props.post.author.firstName : "Anonymous"}
+      title={props.post.author ? `${props.post.author.firstName} ${props.post.author.lastName}` : "Anonymous"}
       avatar={
           <Avatar sx={{ bgcolor: '#ed6c02' }} aria-label="recipe">
             <Link to={`/profile/${props.post.author.id}`} style={{ textDecoration: 'none', color: 'white' }}>

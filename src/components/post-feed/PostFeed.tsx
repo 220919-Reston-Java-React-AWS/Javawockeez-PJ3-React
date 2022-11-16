@@ -15,6 +15,7 @@ export const PostFeed = () => {
     const { user } = useContext(UserContext);
     let welcomeText = 'Welcome!'
     let postForm = <></>;
+    let noPostsText = <></>;
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -75,7 +76,6 @@ export const PostFeed = () => {
         fetchData()
        }, []);
 
-       let noPostsText = <></>;
 
        if(posts.length === 0) {
             noPostsText = 
