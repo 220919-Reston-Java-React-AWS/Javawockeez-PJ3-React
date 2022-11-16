@@ -142,12 +142,12 @@ export default function UserProfile(){
                 direction="row"
                 justifyContent="space-evenly"
                 alignItems="stretch"
-                sx={{mt:'1vh'}}
+                sx={{mt:'2.5vh', mb: '1vh'}}
             >
                 {/* Tab bar to navigate content */}
                 <Grid item>
                     <Box
-                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', minHeight: "100vh" }}
+                        sx={{ flexGrow: 1, bgcolor: 'background.paper', display: 'flex', minHeight: "90vh" }}
                     >
                         <Tabs
                             orientation="vertical"
@@ -165,12 +165,12 @@ export default function UserProfile(){
                 </Grid>
 
                 {/* The Tab Content */}
-                <Grid item xs={9} >
+                <Grid item xs={9} sx={{borderRight: 1, borderLeft:0, borderBottom:0,borderColor: 'grey.300' }}>
                     <Box 
-                        sx={{ flexGrow: 1, display: 'flex', minHeight: "100vh" }}
+                        sx={{ flexGrow: 1, display: 'flex', maxHeight: "90vh"}}
                         style={{overflow: 'auto'}}
                     >
-                        <TabPanel value={value} index={0}>
+                        <TabPanel value={value} index={0} >
                             {post.map((item) =>(
                                     <PostCard post={item} key={item.id}/>
                                 ))
