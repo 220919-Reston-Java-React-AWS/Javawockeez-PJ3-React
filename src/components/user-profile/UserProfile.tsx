@@ -21,6 +21,7 @@ export default function UserProfile(){
     const [user, setUser] = useState<User>();
     const [profile, setProfile] = useState<Profile>();
     let userNameText = `User does not exist`;
+    let userAboutText = `${user?.firstName} ${user?.lastName} has yet to write about themselves. They'll get around to it at some point.`;
 
     // for vertical tabs
     const [value, setValue] = React.useState(0);
@@ -77,6 +78,13 @@ export default function UserProfile(){
 
         const result = await apiGetAllPostsById(strUserId)
         setPosts(result.payload.reverse())
+    }
+
+    if(profile?.about !== undefined && user){
+        userAboutText = String(profile?.about);
+    }
+    else if(user?.firstName === undefined){
+        userAboutText = "";
     }
 
     // Error message in case of no posts where made
@@ -157,20 +165,25 @@ export default function UserProfile(){
                 </Grid>
 
                 {/* The Tab Content */}
-                <Grid item xs={9}>
-                    <TabPanel value={value} index={0}>
-                        {post.map((item) =>(
-                                <PostCard post={item} key={item.id}/>
-                            ))
-                        }
-                        { noPostsText }
-                    </TabPanel>
-                    <TabPanel value={value} index={1}>
-                        <Typography variant="h5">{ profile?.about }</Typography>
-                    </TabPanel>
-                    <TabPanel value={value} index={2}>
-                        Item Three
-                    </TabPanel>
+                <Grid item xs={9} >
+                    <Box 
+                        sx={{ flexGrow: 1, display: 'flex', minHeight: "100vh" }}
+                        style={{overflow: 'auto'}}
+                    >
+                        <TabPanel value={value} index={0}>
+                            {post.map((item) =>(
+                                    <PostCard post={item} key={item.id}/>
+                                ))
+                            }
+                            { noPostsText }
+                        </TabPanel>
+                        <TabPanel value={value} index={1}>
+                            <Typography variant="h5">{ userAboutText }</Typography>
+                        </TabPanel>
+                        <TabPanel value={value} index={2}>
+                            Item Three
+                        </TabPanel>
+                    </Box>
                 </Grid>
             </Grid>
            
