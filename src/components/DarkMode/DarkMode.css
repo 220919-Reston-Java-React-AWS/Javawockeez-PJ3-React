@@ -63,6 +63,14 @@
     background-color: var(--form-box-color) !important;
     color: var(--font-color) !important;
   }
+  
+  .MuiTabs-scroller.MuiTabs-hideScrollbar.MuiTabs-scrollableY.css-1cgx7kx-MuiTabs-scroller{
+    background-color: var(--box-color) !important;
+    color: var(--font-color) !important;
+  }
+  .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
+    color: var(--font-color) !important;
+  }
 
   /* Custom Dark Mode Toggle Element */
 .toggle-theme-wrapper {
