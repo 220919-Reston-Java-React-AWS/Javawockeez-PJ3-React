@@ -73,7 +73,12 @@ export const PostCard = (props: postProps) => {
     props.post.comments.push(new Post(0, data.get('commentText')?.toString() || '', '', [], user));
 
     let payload = props.post;
-    await apiUpsertPost(payload);
+    let newPostResponse = await apiUpsertPost(payload);
+
+    if (!newPostResponse.payload.message){
+      props.post.id = newPostResponse.payload.id
+      props.post.comments = newPostResponse.payload.comments
+    }
 
     //event.currentTarget?.reset();
     setDummyHook(!dummyHook)

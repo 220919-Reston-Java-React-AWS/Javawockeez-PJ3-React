@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid, Button } from '@mui/material';
-import Navbar from '../navbar/Navbar';
+// import Navbar from '../navbar/Navbar';
 import { PostCard } from './PostCard';
 import Post from '../../models/Post';
 import { apiGetAllPosts } from '../../remote/social-media-api/postFeed.api';
@@ -86,7 +86,7 @@ export const PostFeed = () => {
     
     return (
         <>
-           <Navbar />
+           {/* <Navbar /> */}
            <Container maxWidth="xl" sx={{
                 height: 'auto'
             }}>
