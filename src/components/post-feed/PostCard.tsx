@@ -167,7 +167,7 @@ export const PostCard = (props: postProps) => {
       title={props.post.author ? `${props.post.author.firstName} ${props.post.author.lastName}` : "Anonymous"}
       avatar={
           <Avatar sx={{ bgcolor: '#ed6c02' }} aria-label="recipe">
-            <Link to={`/profile/${props.post.author.id}`} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to={`/profile/${props.post.author?.id}`} style={{ textDecoration: 'none', color: 'white' }}>
               <PersonIcon style={{ textDecoration: 'none' }}/>
             </Link>
           </Avatar>
@@ -184,7 +184,7 @@ export const PostCard = (props: postProps) => {
       <div className="card-footer">
 
         {/* npm i reactjs-popup */}
-        {user?.id==props.post.author.id ? commentEditForm : null}
+        {user?.id==props.post.author?.id ? commentEditForm : null}
         
 
       <CardActions disableSpacing>
@@ -199,7 +199,7 @@ export const PostCard = (props: postProps) => {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          { commentForm }
+          { user ? commentForm : null }
           <Typography paragraph>comments:</Typography>
           <Grid container justifyContent={"center"}>
                 <Grid item sx={{width: '100%'}} >
