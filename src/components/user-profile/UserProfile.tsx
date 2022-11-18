@@ -119,8 +119,8 @@ export default function UserProfile(){
 
     // Display this for web page
     return (
-        <>
-           <Navbar />
+        <main>
+           {/* <Navbar /> */}
 
             {/* Using grid to layout the profile page */}
             <Grid container 
@@ -159,7 +159,7 @@ export default function UserProfile(){
                         >
                             <Tab label="Posts" {...a11yProps(0)} />
                             <Tab label="About Me" {...a11yProps(1)} />
-                            <Tab label="Following" {...a11yProps(2)} />
+                            {/* <Tab label="Following" {...a11yProps(2)} /> */}
                         </Tabs>
                     </Box>
                 </Grid>
@@ -170,6 +170,7 @@ export default function UserProfile(){
                         sx={{ flexGrow: 1, display: 'flex', maxHeight: "90vh"}}
                         style={{overflow: 'auto'}}
                     >
+                        {/* User Posts */}
                         <TabPanel value={value} index={0} >
                             {post.map((item) =>(
                                     <PostCard post={item} key={item.id}/>
@@ -177,17 +178,20 @@ export default function UserProfile(){
                             }
                             { noPostsText }
                         </TabPanel>
+
+                        {/* User About Me */}
                         <TabPanel value={value} index={1}>
-                            <Typography variant="h5">{ userAboutText }</Typography>
+                            <Typography variant="h5" style={{whiteSpace: 'pre-wrap'}}>{ userAboutText }</Typography>
                         </TabPanel>
-                        <TabPanel value={value} index={2}>
+                        
+                        {/* <TabPanel value={value} index={2}>
                             Item Three
-                        </TabPanel>
+                        </TabPanel> */}
                     </Box>
                 </Grid>
             </Grid>
            
-        </>
+        </main>
     )
 }
 

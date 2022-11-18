@@ -22,8 +22,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import Logout from '@mui/icons-material/Logout';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import PersonAdd from '@mui/icons-material/PersonAdd';
-import Settings from '@mui/icons-material/Settings';
 
 export default function Navbar() {
 
@@ -44,6 +42,7 @@ export default function Navbar() {
       }
   }, [user]);
 
+  // click event function for logging in and logging out
   function handleAuth() {
       if(user) {
           apiLogout();
@@ -52,7 +51,18 @@ export default function Navbar() {
       } else {
           navigate('/login'); 
       }
-  } 
+  }
+
+  // click event function for going to user profile
+  function handleMenuProfile() {
+    navigate(`/profile/${user?.id}`); 
+    
+  }
+
+  // click event function for going to user account
+  function handleMenuAccount() {
+    navigate(`/account`); 
+  }
 
   let loginIcon = <></>
 
@@ -98,7 +108,7 @@ export default function Navbar() {
           aria-haspopup="true"
           aria-expanded={open ? 'true' : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 } }></Avatar>
+          <Avatar sx={{ width: 32, height: 32 }} style={{backgroundColor: '#ed6c02'}}></Avatar>
         </IconButton>
       </Tooltip>
       <Menu
@@ -132,10 +142,10 @@ export default function Navbar() {
           },
         }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => handleMenuProfile()}>
           Profile
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => handleMenuAccount()}>
           My Account
         </MenuItem>
         <Divider />
