@@ -35,7 +35,6 @@ let post:Post = {
     author:user
 }
 
-
 test("Card Mounts correctly", ()=>{
 
     act(() => {
