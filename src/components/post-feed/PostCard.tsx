@@ -26,9 +26,11 @@ import Divider from '@mui/material/Divider';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Popup from 'reactjs-popup';
+import {censor} from "../../remote/profanity-api/profanity.api"
 
 import "./PostCard.css"
 import { Link } from "react-router-dom";
+import { url } from "inspector";
 
 interface postProps {
     post: Post,
@@ -69,15 +71,18 @@ export const PostCard = (props: postProps) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     event.currentTarget?.reset(); // If this isn't right here, it doesn't work??
+
+    let censoredText = await censor(data.get('commentText')?.toString() || '')
     
-    props.post.comments.push(new Post(0, data.get('commentText')?.toString() || '', '', [], user));
+    props.post.comments.push(new Post(0, censoredText, '', [], user, new Date()));
 
     let payload = props.post;
     let newPostResponse = await apiUpsertPost(payload);
 
     if (!newPostResponse.payload.message){
-      props.post.id = newPostResponse.payload.id
-      props.post.comments = newPostResponse.payload.comments
+      props.post.id = newPostResponse.payload.id;
+      props.post.comments = newPostResponse.payload.comments;
+      props.post.postDate = newPostResponse.payload.postDate;
     }
 
     //event.currentTarget?.reset();
@@ -88,7 +93,9 @@ export const PostCard = (props: postProps) => {
     event.preventDefault();
 
     const data = new FormData(event.currentTarget);
-    props.post.text = data.get('commentText')?.toString() || '';
+
+    let censoredText = await censor(data.get('commentText')?.toString() || '')
+    props.post.text = censoredText;
 
     let payload = props.post;
     await apiUpsertPost(payload);
@@ -123,6 +130,7 @@ export const PostCard = (props: postProps) => {
         name='commentText'
         placeholder="Make a comment..."
         inputProps={{ 'aria-label': 'Make a comment' }}
+        multiline={true}
       />
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <IconButton type="submit" sx={{ p: '10px' }} aria-label="submit">
@@ -131,7 +139,7 @@ export const PostCard = (props: postProps) => {
  </Paper>
 
  commentEditForm = 
- <Popup trigger={<p id={`${props.post.id}`}>Edit post</p>}>
+ <Popup trigger={<p className="edit-post-text" id={`${props.post.id}`}>Edit post</p>}>
  <Card>
      <Box component='form' onSubmit={handleEdit} noValidate sx={{ mt: 1 }}>
      <InputBase
@@ -140,6 +148,7 @@ export const PostCard = (props: postProps) => {
          name='commentText'
          defaultValue={props.post.text}
          inputProps={{ 'aria-label': 'Make a comment' }}
+         multiline={true}
        />
        <IconButton type="submit" sx={{ p: '10px' }} aria-label="submit">
          <AddCircleIcon color="warning" />
@@ -161,7 +170,7 @@ export const PostCard = (props: postProps) => {
   }
 
   return (
-    <Card sx={{maxWidth:"100%", marginTop: "3%" }}>
+    <Card sx={{maxWidth:"100%", marginTop:"3%", border:1, borderColor:'secondary.main', borderRadius:'16px' }}>
       
     <CardHeader
       title={props.post.author ? `${props.post.author.firstName} ${props.post.author.lastName}` : "Anonymous"}
@@ -176,7 +185,13 @@ export const PostCard = (props: postProps) => {
         /> 
       { media }
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" whiteSpace={'pre-wrap'}>
+          <div>
+            <i>
+              {`Created on ${new Date(props.post.postDate).toDateString()}`}
+            </i>
+          </div>
+          <br/>
           {props.post.text}
         </Typography>
       </CardContent>

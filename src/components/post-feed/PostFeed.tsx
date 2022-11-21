@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/user.context';
 import TextField from '@mui/material/TextField';
 import { apiUpsertPost } from '../../remote/social-media-api/post.api';
+import {censor} from "../../remote/profanity-api/profanity.api"
 
 
 export const PostFeed = () => {  
@@ -22,7 +23,10 @@ export const PostFeed = () => {
         const data = new FormData(event.currentTarget);
         event.currentTarget.reset();
 
-        let payload = new Post(0, data.get('postText')?.toString() || '', data.get('postImage')?.toString() || '', [], user);
+        let censoredText = await censor(data.get('postText')?.toString() || '')
+        //let censoredText = data.get('postText')?.toString() || ''
+
+        let payload = new Post(0, censoredText, data.get('postImage')?.toString() || '', [], user, new Date());
         await apiUpsertPost(payload);
         fetchData();
     }
@@ -47,7 +51,9 @@ export const PostFeed = () => {
             id="postText"
             name='postText'
             label="Thoughts You Would Like to Share?"
+            multiline={true}
             fullWidth
+            sx={{"& textarea": {padding: "5px"}, backgroundColor: "box-color"}}
           />
           <TextField
               id="postImage"
@@ -55,6 +61,7 @@ export const PostFeed = () => {
               label="Add an Image or Diagram?"
               fullWidth
               variant="standard"
+              sx={{"& label": {paddingLeft: "10px"}}}
           />
           <Button 
               type="submit"

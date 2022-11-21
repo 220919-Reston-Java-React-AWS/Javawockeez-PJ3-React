@@ -39,8 +39,18 @@
   }
 
   input{
-        background-color: var(--box-color) !important;
-        color: var(--font-color) !important;
+    background-color: var(--box-color) !important;
+    color: var(--font-color) !important;
+  }
+
+  textarea{
+    background-color: var(--box-color) !important;
+    color: var(--font-color) !important;
+  }
+
+  p{
+    background-color: var(--box-color) !important;
+    color: var(--font-color) !important;
   }
 
   a {
