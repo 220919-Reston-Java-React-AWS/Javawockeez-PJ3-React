@@ -147,13 +147,13 @@ export const PostCard = (props: postProps) => {
          id='commentText'
          name='commentText'
          defaultValue={props.post.text}
-         inputProps={{ 'aria-label': 'Make a comment' }}
+         inputProps={{ 'aria-label': 'Edit comment' }}
          multiline={true}
        />
        <IconButton type="submit" sx={{ p: '10px' }} aria-label="submit">
          <AddCircleIcon color="warning" />
        </IconButton>
-       <IconButton type="button" onClick={handleDelete} sx={{ p: '10px' }} aria-label="submit">
+       <IconButton id='delete-button' type="button" onClick={handleDelete} sx={{ p: '10px' }} aria-label="delete">
          <DeleteIcon sx={{ color: "rgb(100, 100, 150)" }} />
        </IconButton>
      </Box>
@@ -186,11 +186,9 @@ export const PostCard = (props: postProps) => {
       { media }
       <CardContent>
         <Typography variant="body2" color="text.secondary" whiteSpace={'pre-wrap'}>
-          <div>
-            <i>
-              {`Created on ${new Date(props.post.postDate).toDateString()}`}
-            </i>
-          </div>
+          <i>
+            {`Created on ${new Date(props.post.postDate).toDateString()}`}
+          </i>
           <br/>
           {props.post.text}
         </Typography>
