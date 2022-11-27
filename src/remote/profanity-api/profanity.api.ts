@@ -23,6 +23,7 @@ export async function censor(text:string){
         return response.data["censored-content"];
     }).catch(function (error:any) {
 	    console.error(error);
+        //return text;
     });
 
     //return censoredText;
