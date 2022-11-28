@@ -12,9 +12,10 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { apiLogin } from '../../remote/social-media-api/auth.api';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../context/user.context';
 import DarkMode from '../DarkMode/DarkMode';
+import './Login.css'
 
 
 const theme = createTheme();
@@ -24,6 +25,8 @@ export default function Login() {
 
   const navigate = useNavigate();
 
+  const [errText, setErrText] = useState("");
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -31,6 +34,11 @@ export default function Login() {
     if (response.status >= 200 && response.status < 300) {
       setUser(response.payload);
       navigate('/');
+    } else if (response.payload.message) {
+      //alert(response.payload.message)
+      setErrText("* " + response.payload.message)
+    } else {
+      alert('The system has encountered an unexpected error')
     }
   };
 
@@ -81,9 +89,19 @@ export default function Login() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item>
+              <Grid item xs={12} md={6}>
                 <Link href="register" variant="body2">
                   {"Don't have an account? Sign Up"}
+                </Link>
+              </Grid>
+              <Grid item xs={12} md={6} className='error-text'>
+                {errText}
+              </Grid>
+            </Grid>
+            <Grid container>
+              <Grid item>
+                <Link href="reset-password" variant="body2">
+                  {"Forgot Password? Reset Password"}
                 </Link>
               </Grid>
             </Grid>

@@ -7,9 +7,9 @@ import { useContext } from 'react';
 import { User } from '../../context/user.context';
 import TextField from '@mui/material/TextField';
 import { apiUpsertPost } from '../../remote/social-media-api/post.api';
-import { apiGetAllPostsById, apiGetUserProfileName, apiGetProfileByUserId, apiPatchProfileData } from '../../remote/social-media-api/profile.api';
+import { apiGetAllPostsById, apiGetUserProfileName, apiGetProfileByUserId, apiPatchProfileData, apiUpdateQuestionsById, apiAuthSampleQuestions1, apiAuthSampleQuestions2, apiAuthSampleQuestions3 } from '../../remote/social-media-api/profile.api';
 import { PostCard } from '../post-feed/PostCard';
-
+import Select from 'react-select';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
@@ -19,6 +19,7 @@ import { UserProfileContext } from '../../context/profile.context';
 import { useNavigate } from 'react-router-dom';
 import Account from '../../models/Account';
 import { apiPatchAccountData } from '../../remote/social-media-api/account.api';
+import { sampleQuestionsModel } from '../../models/SampleQuestionsModel';
 
 
 export default function UserAccount(){
@@ -28,6 +29,20 @@ export default function UserAccount(){
     const { setProfileContext } = useContext(UserProfileContext); // Storing logged in user's profile data 
     const [profile, setProfile] = useState<Profile>(); // Profile state used for this page
     const { setUser } = useContext(UserContext);
+
+    //------- set up states for security questions
+  const[selectedOption1, setSelectedOption1] = React.useState(null)
+  const [questions1, setQuestions1] = useState<sampleQuestionsModel[]>([])
+  const handleChange1 = (e:any) => {setSelectedOption1(e);}
+  const[selectedOption2, setSelectedOption2] = React.useState(null)
+  const [questions2, setQuestions2] = useState<sampleQuestionsModel[]>([])
+  const handleChange2 = (e:any) => {setSelectedOption2(e);}
+  const[selectedOption3, setSelectedOption3] = React.useState(null)
+  const [questions3, setQuestions3] = useState<sampleQuestionsModel[]>([])
+  const handleChange3 = (e:any) => {setSelectedOption3(e);}
+  const [textAnswer1, setTextAnswer1] = useState('');
+    const [textAnswer2, setTextAnswer2] = useState(''); 
+    const [textAnswer3, setTextAnswer3] = useState('');
 
     //------- States reflecting change settings inputs
     const [textInputBanner, setTextInputBanner] = useState(''); // get the text input from the Change Banner Img setting
@@ -61,6 +76,10 @@ export default function UserAccount(){
     const handleOpen3 = () => setOpen3(true);
     const handleClose3 = () => setOpen3(false);
 
+    const [open4, setOpen4] = React.useState(false); // change security questions
+    const handleOpen4 = () => setOpen4(true);
+    const handleClose4 = () => setOpen4(false);
+
     //-------- On window page load
     useEffect(() => {
         window.scrollTo({top: 0, left: 0, behavior: 'smooth'}); //scroll to top on page load
@@ -69,6 +88,10 @@ export default function UserAccount(){
         redirectLogin(); // redirect if not logged in
         fetchPostData(); // get post data for user profile
         fetchProfileData(); // get profile about and images
+        //get sample questions
+        getSampleQuestions1();
+        getSampleQuestions2();
+        getSampleQuestions3();
     }, []);
 
     //-------- Redirect if not logged in
@@ -198,7 +221,6 @@ export default function UserAccount(){
         setTextInputAbout(event.target.value);
     };
 
-
     //--------- Update Account event
     const handleAccountUpdate = async(event: React.SyntheticEvent) => {
         let id:number;
@@ -250,6 +272,72 @@ export default function UserAccount(){
         setTextInputPassword(event.target.value);
     };
 
+    //get sample questions1
+  const getSampleQuestions1 = async () => {
+    const result = await apiAuthSampleQuestions1()
+    setQuestions1(result.payload)
+  }
+
+  //get sample questions2
+  const getSampleQuestions2 = async () => {
+    const result = await apiAuthSampleQuestions2()
+    setQuestions2(result.payload)
+  }
+
+  //get sample questions3
+  const getSampleQuestions3 = async () => {
+    const result = await apiAuthSampleQuestions3()
+    setQuestions3(result.payload)
+  }
+
+  // answer1 field change
+  const handleTextInputAnswer1 = (event:any) => {
+    setTextAnswer1(event.target.value);
+};
+
+// answer1 field change
+const handleTextInputAnswer2 = (event:any) => {
+    setTextAnswer2(event.target.value);
+};
+
+// answer1 field change
+const handleTextInputAnswer3 = (event:any) => {
+    setTextAnswer3(event.target.value);
+};
+
+  //---------Update Security Questions Event
+  const updateSecurityQuestions = async(event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    let id:string;
+    let question1:string;
+    let answer1:string;
+    let question2:string;
+    let answer2:string;
+    let question3:string;
+    let answer3:string;
+    // get data from modal
+    id = String(user?.id);
+    question1 = (Object(selectedOption1!)["question"]);
+    answer1 = String(textAnswer1 !== "" ? textAnswer1 : '');
+    question2 = Object(selectedOption2!)["question"];
+    answer2 = String(textAnswer2 !== "" ? textAnswer2 : '');
+    question3 = Object(selectedOption3!)["question"];
+    answer3 = String(textAnswer3 !== "" ? textAnswer3 : '');
+    //set response information
+    const response = await apiUpdateQuestionsById(id, question1, answer1, question2, answer2, question3, answer3)
+    //reset info
+    if (response.status >= 200 && response.status < 300) {
+        setUser(response.payload);
+    }
+
+    // refresh the profile data form update
+    fetchPostData()
+    fetchProfileData()
+
+    //close modal
+    handleClose4()
+};
 
     //--------- Display this for web page
     return (
@@ -436,7 +524,89 @@ export default function UserAccount(){
                                     </Button>
                                 </Box>
                             </Modal>
+
+                            {/*Update Security Questions*/}
+
+                            <br/><br/><br/>
+
+                            <Typography variant="h6">Change Security Questions</Typography>
+                            <br/>
+                            <Button onClick={handleOpen4} variant="contained">Update Security Questions</Button>
+                            <Modal
+                                open={open4}
+                                onClose={handleClose4}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                                <Box sx={style}>
+                                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                                    Choose Security Questions From The Dropdown Menus And Answer The Questions.
+                                    </Typography>
+                                    
+                                    <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
+                                    <Select 
+                                        placeholder="Question 1"
+                                        value={selectedOption1}
+                                        options={questions1}
+                                        getOptionLabel={option => option!.question}
+                                        onChange={handleChange1}
+                                        />
+                                    </Box>
+
+                                    <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        inputProps={{ maxLength: 255 }}
+                                            onChange= {handleTextInputAnswer1}
+                                        />
+                                    </Box>
+                                    
+                                    <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
+                                    <Select 
+                                        placeholder="Question 2"
+                                        value={selectedOption2}
+                                        options={questions2}
+                                        getOptionLabel={option => option!.question}
+                                        onChange={handleChange2}
+                                        />
+                                    </Box>
+
+                                    <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        inputProps={{ maxLength: 255 }}
+                                            onChange= {handleTextInputAnswer2}
+                                        />
+                                    </Box>
+
+                                    <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
+                                    <Select 
+                                        placeholder="Question 3"
+                                        value={selectedOption3}
+                                        options={questions3}
+                                        getOptionLabel={option => option!.question}
+                                        onChange={handleChange3}
+                                        />
+                                    </Box>
+
+                                    <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
+                                    <TextField
+                                        required
+                                        fullWidth
+                                        inputProps={{ maxLength: 255 }}
+                                            onChange= {handleTextInputAnswer3}
+                                        />
+                                    </Box>
+
+                                    <Button variant="contained" color="error" sx={{ mt: '2vh' }} onClick={updateSecurityQuestions}>
+                                        Update
+                                    </Button>
+                                </Box>
+                            </Modal>
                         </TabPanel>
+                        
                     </Box>
                 </Grid>
             </Grid>
