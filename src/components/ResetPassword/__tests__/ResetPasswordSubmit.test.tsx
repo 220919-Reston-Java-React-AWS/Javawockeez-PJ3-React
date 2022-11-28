@@ -29,6 +29,9 @@ const question3:sampleQuestionsModel = {
 const questions1:sampleQuestionsModel[] = [question1, question2, question3];
 
 
+// mocking function of scrollTo
+window.scrollTo = jest.fn(); 
+
 beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement("div");
