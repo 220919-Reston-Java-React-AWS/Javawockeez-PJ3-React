@@ -32,7 +32,7 @@ export default function Error(){
     }, []);
     
     return(
-        <>
+        <main id='Error'>
            {/* <Navbar /> */}
 
             {/* Using grid to layout the profile page */}
@@ -53,7 +53,7 @@ export default function Error(){
                     </Typography>
                 </Grid>
             </Grid>
-        </>
+        </main>
     )
 
     

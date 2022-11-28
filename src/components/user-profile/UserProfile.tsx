@@ -75,8 +75,12 @@ export default function UserProfile(){
         const location = window.location.pathname;
         // get the user id at the end of path
         const strUserId = location.substring(location.lastIndexOf('/') + 1)
+        // console.log(strUserId)
 
         const result = await apiGetAllPostsById(strUserId)
+        
+        // console.log(result.payload)
+
         setPosts(result.payload.reverse())
     }
 
@@ -96,7 +100,7 @@ export default function UserProfile(){
             This user has yet to make a post.
         </h2>;
     }
-
+ 
     // To determine if there is a banner image to display
     let bannerImage = <></>;
 
