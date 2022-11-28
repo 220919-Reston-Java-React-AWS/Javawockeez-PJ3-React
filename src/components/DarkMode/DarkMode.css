@@ -17,6 +17,7 @@
     --shadow-color-3: rgba(255,255,255,0.12) !important;
     --tab-selected-color: rgb(70, 70, 70) !important;
     --navbar-color: rgb(47, 47, 47) !important;
+    --modal-box-bgcolor: rgb(47, 47, 47) !important;
   }
 
   [data-theme="light"] {
@@ -25,6 +26,7 @@
     --shadow-color-3: rgba(0,0,0,0.12) !important;
     --tab-selected-color: rgb(240, 240, 240) !important;
     --navbar-color: rgb(240, 240, 240) !important;
+    --modal-box-bgcolor: white !important;
   }
 
   body {
@@ -109,6 +111,21 @@
   .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary.Mui-selected.css-1h9z7r5-MuiButtonBase-root-MuiTab-root{
     color: var(--tab-font-color) !important;
     background-color: var(--tab-selected-color) !important;
+  }
+
+  /* Content tab background box*/
+  .MuiTypography-root.MuiTypography-body1.css-ahj2mt-MuiTypography-root{
+    background-color: var(--background-color) !important;
+  }
+
+  /* modal box bg color */
+  .MuiBox-root.css-atcuqd{
+    background-color: var(--modal-box-bgcolor) !important;
+  }
+
+  /* to remove the white space aroung the character limit text */
+  .MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.css-yapd1y-MuiFormControl-root-MuiTextField-root{
+    background-color: var(--modal-box-bgcolor) !important;
   }
 
 /* Custom Dark Mode Toggle Element */

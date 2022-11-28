@@ -6,6 +6,7 @@ const baseURL = "/profile"
 
 // Get All Posts By User Id
 export const apiGetAllPostsById = async (id: string): Promise<socialApiResponse> => {
+    // console.log(id)
     const response = await socialClient.get<any>(
         `${baseURL}/posts/${id}`
     );
@@ -37,6 +38,6 @@ export const apiPatchProfileData = async (profileUpdate: Profile): Promise<socia
         `${baseURL}/update-profile`,
         profileUpdate
     );
-    console.log(response.data)
+    // console.log(response.data)
     return { status: response.status, payload: response.data };
 }
