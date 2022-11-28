@@ -59,14 +59,6 @@ export const apiGetQuestionsByEmail = async (email:string): Promise<socialApiRes
     return { status: response.status, payload: response.data };
 }
 
-// Delete old questions
-export const apiDeleteQuestions = async (email:string): Promise<socialApiResponse> => {
-    const response = await socialClient.delete<any>(
-        `${baseURL}/delete-questions/${email}`,
-    );
-    return { status: response.status, payload: response.data };
-}
-
 //Update password
 export const apiForgotPassword = async (email:string, question1: string, answer1: string, question2: string, answer2: string, question3: string, answer3: string, password: string): Promise<socialApiResponse> => {
     const response = await socialClient.post<any>(

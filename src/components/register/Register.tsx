@@ -139,7 +139,7 @@ export default function Register() {
                 onChange={handleChange1}
                 />
               </Grid>
-            </Grid>
+            
             <Grid item xs={12}>
               <TextField
                 required
@@ -204,6 +204,7 @@ export default function Register() {
                 <Link href="login" variant="body2">
                   Already have an account? Sign in
                 </Link>
+              </Grid>
               </Grid>
             </Grid>
           </Box>
