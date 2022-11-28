@@ -18,3 +18,12 @@ test("Card Mounts correctly", ()=>{
       });
 
 });
+
+test("Has submit box", ()=>{
+    // Render the component
+    let element = render(<CreatePostForm/>, container);
+
+    const clickBox = screen.getByRole("button");
+
+    fireEvent.click(clickBox);
+});
