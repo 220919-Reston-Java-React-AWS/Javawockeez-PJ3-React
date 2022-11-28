@@ -410,7 +410,9 @@ const handleTextInputAnswer3 = (event:any) => {
                         <TabPanel value={value} index={2}>
                             <Typography variant="h6">Change Profile Banner Image</Typography>
                             <br/>
-                            <Button onClick={handleOpen} variant="contained">Update Profile Banner</Button>
+
+                            {/* ---------------------------------------------- */}
+                            <Button onClick={handleOpen} variant="contained" aria-label="profileModalBtn">Update Profile Banner</Button>
                             <Modal
                                 open={open}
                                 onClose={handleClose}
