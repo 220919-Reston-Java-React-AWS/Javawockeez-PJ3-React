@@ -1,0 +1,7 @@
+.error-text {
+    color: red !important;
+    width:fit-content;
+    font-size: small;
+    text-align: center;
+    padding-top: 20px;
+}

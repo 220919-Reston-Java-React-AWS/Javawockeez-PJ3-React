@@ -6,7 +6,9 @@ export const apiLogin = async (email: string, password: string): Promise<socialA
     const response = await socialClient.post<any>(
         `${baseURL}/login`,
         { email: email, password: password }
-    );
+    ).catch((error:any) => {
+        return error.response;
+    })
     return { status: response.status, payload: response.data };
 }
 
