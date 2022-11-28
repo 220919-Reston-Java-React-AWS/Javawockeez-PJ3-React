@@ -89,20 +89,18 @@ export default function Login() {
               Sign In
             </Button>
             <Grid container>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={4} md={12}>
                 <Link href="register" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
-              <Grid item xs={12} md={6} className='error-text'>
-                {errText}
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item>
+              <Grid item xs={4} md={12}>
                 <Link href="reset-password" variant="body2">
                   {"Forgot Password? Reset Password"}
                 </Link>
+              </Grid>
+              <Grid item xs={4} md={12} className='error-text'>
+                {errText}
               </Grid>
             </Grid>
           </Box>

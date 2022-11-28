@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { UserContext } from "../../../context/user.context";
 import { apiDeletePost } from "../../../remote/social-media-api/post.api";
 
-let container:any = null;
+let container = null;
 
 //Dummy data for the test
 const key = 1
@@ -18,7 +18,7 @@ const user = {
     "firstName": "Aidan",
     "lastName": "Shafer"
 }
-let subPost:Post = {
+let subPost = {
     id:2,
     text:"Hello",
     imageUrl:"",
@@ -26,7 +26,7 @@ let subPost:Post = {
     author:user,
     postDate: new Date()
 }
-let post:Post = {
+let post = {
     id:1,
     text:"Hi",
     imageUrl:"",
@@ -38,8 +38,6 @@ let post:Post = {
 beforeEach(() => {
   // setup a DOM element as a render target
   container = document.createElement("div");
-  //container = <div><MemoryRouter></MemoryRouter></div>
-  //container = <MemoryRouter><div></div></MemoryRouter>;
   document.body.appendChild(container);
 });
 
