@@ -1,5 +1,10 @@
 version: 0.2
 phases: 
+
+  prebuild:
+    commands:
+      -npm install
+
   build:
     # made from jenkins
     commands:
@@ -11,6 +16,8 @@ artifacts:
     #Dockerfile
     - '**/*'
     #nginx/nginx.conf
-  base-directory: 'build'
+   discard-paths: no
+   base-directory: 'build'
+ 
     
   
