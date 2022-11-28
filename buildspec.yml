@@ -1,23 +1,18 @@
 version: 0.2
-phases: 
 
-  prebuild:
+phases:
+  pre_build:
     commands:
-      -npm install
-
+      - npm install
   build:
-    # made from jenkins
     commands:
-      - npm ci
       - npm run build
-      #aws s3 sync ./build s3://javawockeez-capstone-project3-react
+
 artifacts:
   files:
-    #Dockerfile
     - '**/*'
-    #nginx/nginx.conf
-   discard-paths: no
-   base-directory: 'build'
+  discard-paths: no
+  base-directory: build
  
     
   
