@@ -1,8 +1,10 @@
 import * as React from "react";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
+import Popup from 'reactjs-popup';
 import styled from "styled-components";
-import Post from "../../models/Post";
-import { Box, Container, Button, Paper, Grid} from '@mui/material';
+
+import { Box, Paper, Grid} from '@mui/material';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,37 +14,33 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { orange, red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
-import InsertCommentIcon from '@mui/icons-material/InsertComment';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PersonIcon from '@mui/icons-material/Person';
-import TextField from '@mui/material/TextField';
-import { apiDeletePost, apiUpsertPost } from '../../remote/social-media-api/post.api';
-import { UserContext } from '../../context/user.context';
 import InputBase from '@mui/material/InputBase';
 import Divider from '@mui/material/Divider';
+import InsertCommentIcon from '@mui/icons-material/InsertComment';
+import PersonIcon from '@mui/icons-material/Person';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Popup from 'reactjs-popup';
-import {censor} from "../../remote/profanity-api/profanity.api"
+
+import Post from "../../models/Post";
+import { UserContext } from '../../context/user.context';
+import {censor} from "../../remote/profanity-api/profanity.api";
+import { apiDeletePost, apiUpsertPost } from '../../remote/social-media-api/post.api';
 
 import "./PostCard.css"
-import { Link } from "react-router-dom";
-import { url } from "inspector";
 
+// The elements to be defined when creating the element (postRemoval is *optional*, but not really, for backwards-compatibility)
 interface postProps {
-    post: Post,
-    key: number,
-    postRemoval?:(post:Post) => void,
+    post: Post, // The post itself
+    key: number, // A unique identifier (ideally, just the post id)
+    postRemoval?:(post:Post) => void, // The method by which this post can be deleted from its container.
 }
 
-
+// A simple interface to help with the expanding window for comments.
 interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
+// How the pop-up should be expanded
 const ExpandMore = styled((props: ExpandMoreProps) => {
   const { expand, ...other } = props;
   return <IconButton {...other} />;
@@ -50,9 +48,11 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
   marginLeft: 'auto',
 }));
 
-
+// The Card itself, shows info about the post for post-feeds.
 export const PostCard = (props: postProps) => {
+  // The user (null if they are not signed in)
   const { user } = useContext(UserContext);
+  // A hook to determine whether the comments are expanded.
   const [expanded, setExpanded ] = React.useState(false);
 
   // It's ridiculous, but it works
