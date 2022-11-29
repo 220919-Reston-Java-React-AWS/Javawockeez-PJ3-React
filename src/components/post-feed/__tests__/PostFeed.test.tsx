@@ -7,9 +7,9 @@ import * as filter from "../../../remote/profanity-api/profanity.api";
 jest.mock("../../../remote/profanity-api/profanity.api")
 const mockCensor = filter.censor as jest.Mock
 
-// import * as allPosts from '../../../remote/social-media-api/postFeed.api';
-// jest.mock('../../../remote/social-media-api/postFeed.api');
-// const mockGetAll = allPosts.apiGetAllPosts as jest.Mock
+import * as allPosts from '../../../remote/social-media-api/postFeed.api';
+jest.mock('../../../remote/social-media-api/postFeed.api');
+const mockGetAll = allPosts.apiGetAllPosts as jest.Mock
 
 import * as onePost from '../../../remote/social-media-api/post.api';
 jest.mock('../../../remote/social-media-api/post.api');
@@ -25,9 +25,11 @@ const user = {
     "lastName": "McTestface"
 }
 
-afterAll(() => {
-    jest.clearAllMocks();
-  });
+
+beforeEach(() => {
+    mockGetAll.mockReturnValue({ status: 200, payload: [] });
+});
+
 
 test('opens without crashing', ()=>{
     render(<PostFeed />);

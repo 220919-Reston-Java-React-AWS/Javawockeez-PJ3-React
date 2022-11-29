@@ -4,12 +4,22 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import Login from "../Login";
 
-// import * as authAPI from '../../../remote/social-media-api/auth.api';
-// jest.mock('../../../remote/social-media-api/auth.api')
-// const mockLogin = authAPI.apiLogin as jest.Mock
+import * as authAPI from '../../../remote/social-media-api/auth.api';
+jest.mock('../../../remote/social-media-api/auth.api')
+const mockLogin = authAPI.apiLogin as jest.Mock
+
+window.alert = jest.fn();
 
 
 let container:any = null;
+
+const user = {
+    "id": 1,
+    "email": "test@test.net",
+    "firstName": "Testy",
+    "lastName": "McTestface"
+}
+
 
 beforeEach(() => {
     // setup a DOM element as a render target
@@ -60,9 +70,43 @@ test("Register and reset password links exists", ()=>{
 });
 
 test('Submit login', ()=>{
-    let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
+    act(() => {
+        let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
+    });
+
+    mockLogin.mockReturnValue({ status: 200, payload: user }); // Pretend I actually input the right information
 
     const submitButton = screen.getByRole("button");
     fireEvent.click(submitButton)
+});
 
+test('Incorrect Password', ()=>{
+    act(() => {
+        let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
+    });
+
+    mockLogin.mockReturnValue({ status: 400, payload: {message: "*Bad Password"} }); // Pretend I actually input the right information
+
+    act(() => {
+        const submitButton = screen.getByRole("button");
+        fireEvent.click(submitButton)
+    });
+
+    //expect(screen.getByText("Bad Password"));
+});
+
+test('Error', ()=>{
+    act(() => {
+        let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
+    });
+
+    mockLogin.mockReturnValue({ status: 400, payload: {} }); // Pretend I actually input the right information
+
+    const submitButton = screen.getByRole("button");
+
+    act(() => {
+        fireEvent.click(submitButton)
+    });
+
+    //expect(screen.getByText("Bad Password"));
 });

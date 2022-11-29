@@ -62,7 +62,9 @@
     "collectCoverageFrom": [
       "!src/index.tsx",
       "!src/reportWebVitals.ts",
-      "!src/remote/*/*"
+      "!src/remote/*/*",
+      "!src/models/*",
+      "!src/context/*"
     ]
   }
 }
