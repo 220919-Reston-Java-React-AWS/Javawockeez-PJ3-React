@@ -411,8 +411,8 @@ const handleTextInputAnswer3 = (event:any) => {
                             <Typography variant="h6">Change Profile Banner Image</Typography>
                             <br/>
 
-                            {/* ---------------------------------------------- */}
-                            <Button onClick={handleOpen} variant="contained" aria-label="profileModalBtn">Update Profile Banner</Button>
+                            {/* Modal for Updating the Profile Banner Image */}
+                            <Button onClick={handleOpen} variant="contained" aria-label="bannerModalBtn">Update Profile Banner</Button>
                             <Modal
                                 open={open}
                                 onClose={handleClose}
@@ -441,10 +441,11 @@ const handleTextInputAnswer3 = (event:any) => {
                             </Modal>
                             
                             <br/><br/><br/>
+                            {/* Modal for About Me text Update */}
 
                             <Typography variant="h6">Change About Me</Typography>
                             <br/>
-                            <Button onClick={handleOpen2} variant="contained">Update About Me</Button>
+                            <Button onClick={handleOpen2} variant="contained" aria-label="aboutModalBtn">Update About Me</Button>
                             <Modal
                                 open={open2}
                                 onClose={handleClose2}
@@ -460,7 +461,7 @@ const handleTextInputAnswer3 = (event:any) => {
                                         <TextField fullWidth 
                                             multiline rows={5} 
                                             id="inputAboutMe" 
-                                            label="About Me" 
+                                            label="AboutMeModal" 
                                             defaultValue= {profile?.about} 
                                             sx={{bgcolor:'white', color:'black'}}
                                             helperText='Character Limit: 255'
@@ -477,10 +478,11 @@ const handleTextInputAnswer3 = (event:any) => {
                             </Modal>
 
                             <br/><br/><br/>
+                            {/* Modal for Account Updates */}
 
                             <Typography variant="h6">Change Account Information</Typography>
                             <br/>
-                            <Button onClick={handleOpen3} variant="contained">Update Account</Button>
+                            <Button onClick={handleOpen3} variant="contained" aria-label="accountModalBtn">Update Account</Button>
                             <Modal
                                 open={open3}
                                 onClose={handleClose3}
@@ -493,21 +495,30 @@ const handleTextInputAnswer3 = (event:any) => {
                                     </Typography>
                                     
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
-                                        <TextField fullWidth label="First Name" id="inputFirstName" sx={{bgcolor:'white', color:'black'}}
+                                        <TextField fullWidth 
+                                            label="First Name" 
+                                            id="inputFirstName" 
+                                            sx={{bgcolor:'white', color:'black'}}
                                             inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputFirstNameChange}
                                         />
                                     </Box>
 
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
-                                        <TextField fullWidth label="Last Name" id="inputLastName" sx={{bgcolor:'white', color:'black'}}
+                                        <TextField fullWidth 
+                                            label="Last Name" 
+                                            id="inputLastName" 
+                                            sx={{bgcolor:'white', color:'black'}}
                                             inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputLastNameChange}
                                         />
                                     </Box>
                                     
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
-                                        <TextField fullWidth label="Email" id="inputEmail" sx={{bgcolor:'white', color:'black'}}
+                                        <TextField fullWidth 
+                                            label="Email" 
+                                            id="inputEmail" 
+                                            sx={{bgcolor:'white', color:'black'}}
                                             inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputEmailChange}
                                         />
@@ -515,7 +526,10 @@ const handleTextInputAnswer3 = (event:any) => {
 
                                     
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
-                                        <TextField fullWidth label="Password" id="inputPassword" sx={{bgcolor:'white', color:'black'}} 
+                                        <TextField fullWidth 
+                                            label="Password" 
+                                            id="inputPassword" 
+                                            sx={{bgcolor:'white', color:'black'}} 
                                             inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputPasswordChange}
                                         />
@@ -527,13 +541,12 @@ const handleTextInputAnswer3 = (event:any) => {
                                 </Box>
                             </Modal>
 
-                            {/*Update Security Questions*/}
-
                             <br/><br/><br/>
-
+                            {/*Update Security Questions*/}
+                            
                             <Typography variant="h6">Change Security Questions</Typography>
                             <br/>
-                            <Button onClick={handleOpen4} variant="contained">Update Security Questions</Button>
+                            <Button onClick={handleOpen4} variant="contained" aria-label="securityModalBtn">Update Security Questions</Button>
                             <Modal
                                 open={open4}
                                 onClose={handleClose4}
@@ -552,12 +565,14 @@ const handleTextInputAnswer3 = (event:any) => {
                                         options={questions1}
                                         getOptionLabel={option => option!.question}
                                         onChange={handleChange1}
+                                        aria-label="selectQuestion1"
                                         />
                                     </Box>
 
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
                                     <TextField
                                         required
+                                        label="Question 1 Answer" 
                                         fullWidth
                                         inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputAnswer1}
@@ -571,12 +586,14 @@ const handleTextInputAnswer3 = (event:any) => {
                                         options={questions2}
                                         getOptionLabel={option => option!.question}
                                         onChange={handleChange2}
+                                        aria-label="selectQuestion2"
                                         />
                                     </Box>
 
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
                                     <TextField
                                         required
+                                        label="Question 2 Answer" 
                                         fullWidth
                                         inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputAnswer2}
@@ -590,12 +607,14 @@ const handleTextInputAnswer3 = (event:any) => {
                                         options={questions3}
                                         getOptionLabel={option => option!.question}
                                         onChange={handleChange3}
+                                        aria-label="selectQuestion3"
                                         />
                                     </Box>
 
                                     <Box sx={{ maxWidth: '100%', mt: '2vh' }} >
                                     <TextField
                                         required
+                                        label="Question 3 Answer" 
                                         fullWidth
                                         inputProps={{ maxLength: 255 }}
                                             onChange= {handleTextInputAnswer3}
@@ -636,7 +655,7 @@ function TabPanel(props: TabPanelProps) {
         >
         {value === index && (
             <Box sx={{ p: 3 }}>
-            <Typography>{children}</Typography>
+            {children}
             </Box>
         )}
         </div>
