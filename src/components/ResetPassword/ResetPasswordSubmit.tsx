@@ -10,6 +10,7 @@ import { apiForgotPassword, apiGetQuestionsByEmail } from "../../remote/social-m
 import SampleQuestionsModel from "../../models/SampleQuestionsModel";
 import { useState } from "react";
 import React from "react";
+import { error } from "console";
 
 
 const theme = createTheme();
@@ -39,8 +40,8 @@ const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     const strUserEmail = location.substring(location.lastIndexOf('/') + 1)
     const data = new FormData(event.currentTarget);
     const response = await apiForgotPassword(`${strUserEmail}`, `${Object(questions![0])["question"]}`, `${data.get('answer1')}`, `${Object(questions![1])["question"]}`, `${data.get('answer2')}`, `${Object(questions![2])["question"]}`, `${data.get('answer3')}`, `${data.get('password')}`)
-    if (response.status >= 200 && response.status < 300) 
-    navigate('/login');
+    if (response.status >= 200 && response.status < 300){ 
+    navigate('/login');}
   };
 
 React.useEffect(() => {
