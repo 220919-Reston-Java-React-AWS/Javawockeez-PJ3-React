@@ -32,11 +32,11 @@ const submitQuestions = [userEmail, "question1", "answer1", "question2", "answer
 // mocking function of scrollTo
 window.scrollTo = jest.fn(); 
 
-beforeEach(() => {
+beforeEach(async () => {
     // setup a DOM element as a render target
     container = document.createElement("div");
     document.body.appendChild(container);
-    mockGetAll.mockReturnValue({status: 200, payload: questions});
+    mockGetAll.mockReturnValue({ status: 200, payload: questions });
 });
 
 afterEach(() => {
@@ -46,7 +46,7 @@ afterEach(() => {
     container = null;
 });
 
-test("Card Mounts correctly", ()=>{
+test("Card Mounts correctly", async ()=>{
     // Render the component
     act(() => {
         render(<MemoryRouter>
@@ -56,26 +56,26 @@ test("Card Mounts correctly", ()=>{
 
 });
 
-test("Inputs exist", ()=>{
+test("Inputs exist", async ()=>{
     let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
 
-    const answerInput = screen.getByText("Answer");
+    const answerInput = screen.getAllByText("Answer");
     expect(answerInput).toBeDefined();
 
     const passwordInput = screen.getByText("New Password");
     expect(passwordInput).toBeDefined();
 });
 
-test("Submitting reset password request", () =>{
+test("Submitting reset password request",async () =>{
     let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
-    mockSubmit.mockReturnValue({status: 200, payload: submitQuestions})
+    mockSubmit.mockReturnValue({ status: 200, payload: submitQuestions })
     const submitButton = screen.getByRole("button");
     fireEvent.click(submitButton)
 });
 
-test("Submitting reset password request fail", () =>{
+test("Submitting reset password request fail", async () =>{
     let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
-    mockSubmit.mockReturnValue({status: 400, payload: submitQuestions})
+    mockSubmit.mockReturnValue({ status: 400, payload: submitQuestions })
     const submitButton = screen.getByRole("button");
     fireEvent.click(submitButton)
 });
