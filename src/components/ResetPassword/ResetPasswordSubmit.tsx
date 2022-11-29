@@ -7,7 +7,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import { apiForgotPassword, apiGetQuestionsByEmail } from "../../remote/social-media-api/auth.api";
-import { sampleQuestionsModel } from "../../models/SampleQuestionsModel";
+import SampleQuestionsModel from "../../models/SampleQuestionsModel";
 import { useState } from "react";
 import React from "react";
 
@@ -18,7 +18,7 @@ export default function ResetPasswordSubmit() {
   const navigate = useNavigate(); 
 
   //set constants for password reset
-  const [questions, setQuestions] = useState<sampleQuestionsModel[]>([])
+  const [questions, setQuestions] = useState<SampleQuestionsModel[]>([])
 
   //get questions from backend
   const fetchQuestions = async () => {
@@ -68,7 +68,7 @@ React.useEffect(() => {
               Reset Password
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                <div>
+                <div data-testid="question">
                 {Object(questions![0])["question"]}
                 </div>
               <TextField
@@ -81,7 +81,7 @@ React.useEffect(() => {
                 autoComplete="answer1"
                 autoFocus
               />
-              <div>
+              <div id="question">
                 {Object(questions![1])["question"]}
                 </div>
               <TextField
@@ -94,7 +94,7 @@ React.useEffect(() => {
                 autoComplete="answer2"
                 autoFocus
               />
-              <div>
+              <div id="question">
                 {Object(questions![2])["question"]}
                 </div>
               <TextField
