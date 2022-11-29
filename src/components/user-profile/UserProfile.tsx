@@ -163,7 +163,6 @@ export default function UserProfile(){
                         >
                             <Tab label="Posts" {...a11yProps(0)} />
                             <Tab label="About Me" {...a11yProps(1)} />
-                            {/* <Tab label="Following" {...a11yProps(2)} /> */}
                         </Tabs>
                     </Box>
                 </Grid>
@@ -187,10 +186,6 @@ export default function UserProfile(){
                         <TabPanel value={value} index={1}>
                             <Typography variant="h5" style={{whiteSpace: 'pre-wrap'}}>{ userAboutText }</Typography>
                         </TabPanel>
-                        
-                        {/* <TabPanel value={value} index={2}>
-                            Item Three
-                        </TabPanel> */}
                     </Box>
                 </Grid>
             </Grid>
