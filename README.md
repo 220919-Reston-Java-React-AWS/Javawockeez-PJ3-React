@@ -34,8 +34,8 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 Tests all available tests in the project, and displays the coverage. Included is: 
 - Name of the File
 - Percent Coverage of
--- Statements
--- Branches (if and switch statements essentially)
--- Functions
--- Lines
+	- Statements
+	- Branches (if and switch statements essentially)
+	- Functions
+	- Lines
 - All Untested Lines in the tested module
