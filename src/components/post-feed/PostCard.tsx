@@ -85,7 +85,6 @@ export const PostCard = (props: postProps) => {
       props.post.postDate = newPostResponse.payload.postDate;
     }
 
-    //event.currentTarget?.reset();
     setDummyHook(!dummyHook)
   }
 

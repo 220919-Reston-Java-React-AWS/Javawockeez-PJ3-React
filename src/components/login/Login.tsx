@@ -1,4 +1,7 @@
 import * as React from 'react';
+import { useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -6,13 +9,12 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import { apiLogin } from '../../remote/social-media-api/auth.api';
-import { useContext, useState } from 'react';
 import { UserContext } from '../../context/user.context';
 import DarkMode from '../DarkMode/DarkMode';
 import './Login.css'
@@ -35,7 +37,6 @@ export default function Login() {
       setUser(response.payload);
       navigate('/');
     } else if (response.payload.message) {
-      //alert(response.payload.message)
       setErrText("* " + response.payload.message)
     } else {
       alert('The system has encountered an unexpected error')

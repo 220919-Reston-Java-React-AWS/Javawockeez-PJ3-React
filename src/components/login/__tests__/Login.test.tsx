@@ -4,6 +4,11 @@ import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
 import Login from "../Login";
 
+// import * as authAPI from '../../../remote/social-media-api/auth.api';
+// jest.mock('../../../remote/social-media-api/auth.api')
+// const mockLogin = authAPI.apiLogin as jest.Mock
+
+
 let container:any = null;
 
 beforeEach(() => {
@@ -18,6 +23,10 @@ afterEach(() => {
     container.remove();
     container = null;
 });
+
+afterAll(() => {
+    jest.clearAllMocks();
+  });
 
 test("Card Mounts correctly", ()=>{
     // Render the component
@@ -55,5 +64,5 @@ test('Submit login', ()=>{
 
     const submitButton = screen.getByRole("button");
     fireEvent.click(submitButton)
-    
+
 });

@@ -4,11 +4,19 @@ import { act, Simulate } from "react-dom/test-utils";
 import { MemoryRouter} from "react-router-dom";
 import Post from "../../../models/Post";
 import { PostCard } from "../PostCard";
-import React, { useState } from "react";
 import { UserContext } from "../../../context/user.context";
-import { apiDeletePost } from "../../../remote/social-media-api/post.api";
 
-let container = null;
+
+import * as filter from "../../../remote/profanity-api/profanity.api";
+jest.mock("../../../remote/profanity-api/profanity.api")
+const mockCensor = filter.censor as jest.Mock
+
+import * as postAPI from "../../../remote/social-media-api/post.api";
+jest.mock("../../../remote/profanity-api/profanity.api")
+const mockUpsert = postAPI.apiUpsertPost as jest.Mock
+const mockDelete = postAPI.apiDeletePost as jest.Mock
+
+let container:any = null;
 
 //Dummy data for the test
 const key = 1
@@ -18,7 +26,7 @@ const user = {
     "firstName": "Aidan",
     "lastName": "Shafer"
 }
-let subPost = {
+let subPost:Post = {
     id:2,
     text:"Hello",
     imageUrl:"",
@@ -26,7 +34,7 @@ let subPost = {
     author:user,
     postDate: new Date()
 }
-let post = {
+let post:Post = {
     id:1,
     text:"Hi",
     imageUrl:"",
@@ -56,6 +64,10 @@ afterEach(() => {
     postDate: new Date()
     }
 });
+
+afterAll(() => {
+    jest.clearAllMocks();
+  });
 
 
 // =====   TESTING BEGINS HERE   ===== //
@@ -128,7 +140,8 @@ test('Can make a comment', ()=>{
     expect(screen.queryByText("Howdy ya'll")).toBeNull();
 
     //Make a new comment with the text
-    Simulate.input(newCommentInput[0], {target: {value: "Howdy ya'll"} } ); //My machine says there's an error here, but the test runs fine.
+    Simulate.input(newCommentInput[0], {target: {value: "Howdy ya'll"} as HTMLInputElement } );
+    fireEvent.click(screen.getAllByRole("button")[3])
     expect(screen.getAllByRole("button").length).toBe(4);
 
     //Expect it to be there now
@@ -183,7 +196,7 @@ test('Can edit a post', async ()=>{
     submitButton.onclick = mockOnSubmit
 
     //Simulate input and click the submit button
-    Simulate.input(newCommentInput[0], {target: {value: " World"} } );
+    Simulate.input(newCommentInput[0], {target: {value: " World"} as HTMLInputElement } );
     fireEvent.click(submitButton);
 
     // Verify the old text is gone, and the new text appears
