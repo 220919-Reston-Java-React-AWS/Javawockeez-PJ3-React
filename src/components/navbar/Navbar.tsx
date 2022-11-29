@@ -172,7 +172,7 @@ export default function Navbar() {
         <Toolbar style={{overflow: 'hidden'}}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link to="/" style={{ textDecoration: 'none', color: 'black' }}>
-              Revature Social
+              Javawockeez
             </Link>
           </Typography>
 
