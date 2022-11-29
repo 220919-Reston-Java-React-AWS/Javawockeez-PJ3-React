@@ -12,7 +12,7 @@ jest.mock("../../../remote/profanity-api/profanity.api")
 const mockCensor = filter.censor as jest.Mock
 
 import * as postAPI from "../../../remote/social-media-api/post.api";
-jest.mock("../../../remote/profanity-api/profanity.api")
+jest.mock("../../../remote/social-media-api/post.api")
 const mockUpsert = postAPI.apiUpsertPost as jest.Mock
 const mockDelete = postAPI.apiDeletePost as jest.Mock
 
@@ -50,6 +50,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 
   window.scrollTo = jest.fn();
+  //mockUpsert.mockReturnValue( {status:200, payload:post} )
 });
 
 afterEach(() => {
@@ -104,7 +105,10 @@ test('Comment button expands', ()=>{
     expect(screen.queryByText("Hello")).toBeDefined();
 });
 
-test('Can make a comment', ()=>{
+test('Can make a comment', async ()=>{
+    
+    mockUpsert.mockReturnValue( {status:200, payload:post} )
+
     // The userContext in which to run the element (essentially, the credentials to 'sign-in' the test user)
     let usrContext = {
         user: user,
@@ -143,9 +147,12 @@ test('Can make a comment', ()=>{
     expect(screen.queryByText("Howdy ya'll")).toBeNull();
 
     //Make a new comment with the text
-    Simulate.input(newCommentInput[0], {target: {value: "Howdy ya'll"} as HTMLInputElement } );
-    fireEvent.click(screen.getAllByRole("button")[3])
-    expect(screen.getAllByRole("button").length).toBe(4);
+    await act(async() => {
+        Simulate.input(newCommentInput[0], {target: {value: "Howdy ya'll"} as HTMLInputElement } );
+        await fireEvent.click(screen.getAllByRole("button")[3])
+    });
+
+    expect(screen.getAllByRole("button").length).toBe(5);
 
     //Expect it to be there now
     expect(screen.queryByText("Howdy ya'll")).toBeDefined();
@@ -159,13 +166,23 @@ test('Can edit a post', async ()=>{
     }
 
     const newText = "Hi world"
+    const newPost:Post = {
+        id:1,
+        text:newText,
+        imageUrl:"",
+        comments:[subPost],
+        author:user,
+        postDate: new Date()
+        }
+
+    mockUpsert.mockReturnValue( {status:200, payload:newPost} )
 
     const mockOnSubmit = jest.fn(()=>{
         post.text = newText;
         element.rerender(
             <MemoryRouter>
                 <UserContext.Provider value={usrContext}>
-                    <PostCard post={post} key={key} />
+                    <PostCard post={newPost} key={key} />
                 </UserContext.Provider>
             </MemoryRouter>,
         )
@@ -199,8 +216,10 @@ test('Can edit a post', async ()=>{
     submitButton.onclick = mockOnSubmit
 
     //Simulate input and click the submit button
-    Simulate.input(newCommentInput[0], {target: {value: " World"} as HTMLInputElement } );
-    fireEvent.click(submitButton);
+    await act(async() => {
+        await Simulate.input(newCommentInput[0], {target: {value: " World"} as HTMLInputElement } );
+        await fireEvent.click(submitButton);
+    });
 
     // Verify the old text is gone, and the new text appears
     expect(await screen.getAllByText(newText)).toBeDefined();
@@ -258,8 +277,9 @@ test('Can delete a post', async ()=>{
     deleteButton.onclick = mockOnClick
     
     // Click the delete button
-    fireEvent.click(deleteButton, new MouseEvent('click', { bubbles: true }));
-    
+    await act(async() => {
+        await fireEvent.click(deleteButton, new MouseEvent('click', { bubbles: true }));
+    });
     // An alert should be given, and the subpost should no longer appear.
     expect(global.alert).toBeCalled()
     expect(screen.queryAllByText("Hello").length).toBe(0)
