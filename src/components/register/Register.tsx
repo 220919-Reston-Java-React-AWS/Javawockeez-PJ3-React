@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { apiAuthSampleQuestions1, apiAuthSampleQuestions2, apiAuthSampleQuestions3, apiGetQuestionsByEmail, apiRegister } from '../../remote/social-media-api/auth.api';
 import { useState } from 'react';
-import { sampleQuestionsModel } from '../../models/SampleQuestionsModel';
+import sampleQuestionsModel from '../../models/SampleQuestionsModel';
 import Select from 'react-select';
 
 
@@ -95,7 +95,7 @@ export default function Register() {
                   required
                   fullWidth
                   id="firstName"
-                  label="first-Name"
+                  label="First Name"
                   autoFocus
                 />
               </Grid>

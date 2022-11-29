@@ -8,9 +8,6 @@ import * as authAPI from '../../../remote/social-media-api/auth.api';
 jest.mock('../../../remote/social-media-api/auth.api')
 const mockLogin = authAPI.apiLogin as jest.Mock
 
-window.alert = jest.fn();
-
-
 let container:any = null;
 
 const user = {
@@ -25,6 +22,8 @@ beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement("div");
     document.body.appendChild(container);
+
+    jest.spyOn(window, 'alert').mockImplementation(() => {});
 });
 
 afterEach(() => {
@@ -69,7 +68,7 @@ test("Register and reset password links exists", ()=>{
     expect(passwordLink).toBeDefined();
 });
 
-test('Submit login', ()=>{
+test('Submit login', async ()=>{
     act(() => {
         let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
     });
@@ -77,25 +76,29 @@ test('Submit login', ()=>{
     mockLogin.mockReturnValue({ status: 200, payload: user }); // Pretend I actually input the right information
 
     const submitButton = screen.getByRole("button");
-    fireEvent.click(submitButton)
+
+    await act(async () => {
+        await fireEvent.click(submitButton)
+    });
 });
 
-test('Incorrect Password', ()=>{
+test('Incorrect Password', async ()=>{
     act(() => {
         let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
     });
 
-    mockLogin.mockReturnValue({ status: 400, payload: {message: "*Bad Password"} }); // Pretend I actually input the right information
+    mockLogin.mockReturnValue({ status: 400, payload: {message: "Bad Password"} }); // Pretend I actually input the right information
 
-    act(() => {
-        const submitButton = screen.getByRole("button");
-        fireEvent.click(submitButton)
+    const submitButton = screen.getByRole("button");
+
+    await act(async() => {
+        await fireEvent.click(submitButton)
     });
 
-    //expect(screen.getByText("Bad Password"));
+    expect(screen.getByText("Bad Password", {exact:false}));
 });
 
-test('Error', ()=>{
+test('Error', async()=>{
     act(() => {
         let element = render(<MemoryRouter><Login/></MemoryRouter>, container);
     });
@@ -104,9 +107,9 @@ test('Error', ()=>{
 
     const submitButton = screen.getByRole("button");
 
-    act(() => {
-        fireEvent.click(submitButton)
+    await act(async() => {
+        await fireEvent.click(submitButton)
     });
 
-    //expect(screen.getByText("Bad Password"));
+    expect(window.alert).toHaveBeenCalled()
 });

@@ -16,6 +16,7 @@ jest.mock("../../../remote/profanity-api/profanity.api")
 const mockUpsert = postAPI.apiUpsertPost as jest.Mock
 const mockDelete = postAPI.apiDeletePost as jest.Mock
 
+
 let container:any = null;
 
 //Dummy data for the test
@@ -47,6 +48,8 @@ beforeEach(() => {
   // setup a DOM element as a render target
   container = document.createElement("div");
   document.body.appendChild(container);
+
+  window.scrollTo = jest.fn();
 });
 
 afterEach(() => {
@@ -67,7 +70,7 @@ afterEach(() => {
 
 afterAll(() => {
     jest.clearAllMocks();
-  });
+});
 
 
 // =====   TESTING BEGINS HERE   ===== //
