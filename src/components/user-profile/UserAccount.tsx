@@ -19,7 +19,7 @@ import { UserProfileContext } from '../../context/profile.context';
 import { useNavigate } from 'react-router-dom';
 import Account from '../../models/Account';
 import { apiPatchAccountData } from '../../remote/social-media-api/account.api';
-import { sampleQuestionsModel } from '../../models/SampleQuestionsModel';
+import sampleQuestionsModel from '../../models/SampleQuestionsModel';
 
 
 export default function UserAccount(){

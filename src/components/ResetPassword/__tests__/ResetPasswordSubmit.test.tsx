@@ -1,32 +1,30 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router-dom";
-import { sampleQuestionsModel } from "../../../models/SampleQuestionsModel";
+import  sampleQuestionsModel  from "../../../models/SampleQuestionsModel";
 import ResetPasswordSubmit from "../ResetPasswordSubmit";
+
+import * as auth from '../../../remote/social-media-api/auth.api';
+jest.mock('../../../remote/social-media-api/auth.api');
+const mockGetAll = auth.apiGetQuestionsByEmail as jest.Mock;
 
 let container:any = null;
 
-const user = {
-    "id": 2,
-    "email": "aidan109@revature.net",
-    "password": "password",
-    "firstName": "Aidan",
-    "lastName": "Shafer"
-};
-const question1:sampleQuestionsModel = {
+const userEmail = "aidan109@revature.net";
+const questions = [ 
+{
     id:1,
     question:"question1"
-};
-const question2:sampleQuestionsModel = {
+},
+{
     id:2,
     question:"question2"
-};
-const question3:sampleQuestionsModel = {
+},
+{
     id:3,
     question:"question3"
-};
-const questions1:sampleQuestionsModel[] = [question1, question2, question3];
+}];
 
 
 // mocking function of scrollTo
@@ -55,13 +53,15 @@ test("Card Mounts correctly", ()=>{
 
 });
 
-{/*test("Questions display", ()=>{
-    let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
+{/*test("Get Questions", async ()=>{
+    const mockedData = ({ data: questions });
+    render(<ResetPasswordSubmit />);
 
-    window.scrollTo({top:0, left:0, behavior: 'smooth'});
-    const getQuestions = 
-    const childElement = element.getByText(Object(questions1![0])["question"]);
-    expect(childElement).toBeInTheDocument();
+    const expectedQuestions = [{ type: 'Fetch_Questions', payload: mockedData.data }];
+        
+    const questionList = await waitFor(() => screen.findAllByTestId("todo"));
+        
+        expect(todoList).toHaveLength(3);
 });
 
 test('Submit email', ()=>{
