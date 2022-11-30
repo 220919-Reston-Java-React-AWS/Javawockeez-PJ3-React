@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Container, Grid, Button, Avatar } from '@mui/material';
-import Navbar from '../navbar/Navbar';
 import Post from '../../models/Post';
-import { apiGetAllPosts } from '../../remote/social-media-api/postFeed.api';
-import { useContext } from 'react';
 import { User } from '../../context/user.context';
-import TextField from '@mui/material/TextField';
-import { apiUpsertPost } from '../../remote/social-media-api/post.api';
 import { apiGetAllPostsById, apiGetUserProfileName, apiGetProfileByUserId } from '../../remote/social-media-api/profile.api';
 import { PostCard } from '../post-feed/PostCard';
 
