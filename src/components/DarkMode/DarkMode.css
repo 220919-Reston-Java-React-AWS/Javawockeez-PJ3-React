@@ -125,6 +125,12 @@
       box-shadow: 0px 2px 4px -1px var(--shadow-color-1),0px 4px 5px 0px var(--shadow-color-2),0px 1px 10px 0px var(--shadow-color-3) !important;
   }
 
+  /* Navigation Bar Shadow for firefox */
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorTransparent.MuiAppBar-positionStatic.css-qixh7c{
+    background-color: var(--navbar-color) !important;
+    box-shadow: 0px 2px 4px -1px var(--shadow-color-1),0px 4px 5px 0px var(--shadow-color-2),0px 1px 10px 0px var(--shadow-color-3) !important;
+  }
+
   /* Navigation Tabs CSS */
   .MuiTabs-scroller.MuiTabs-hideScrollbar.MuiTabs-scrollableY.css-1cgx7kx-MuiTabs-scroller{
     background-color: var(--box-color) !important;
