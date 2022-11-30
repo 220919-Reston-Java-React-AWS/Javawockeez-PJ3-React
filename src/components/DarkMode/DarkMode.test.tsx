@@ -1,6 +1,21 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
 import DarkMode from "./DarkMode";
+import { unmountComponentAtNode } from "react-dom";
+
+let container:any = null;
+
+beforeEach(() => {
+container = document.createElement("div");
+document.body.appendChild(container);
+});
+
+afterEach(() => {
+  // cleanup on exiting
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
 
 test("renders dark mode component", () => {
   render(<DarkMode />);
@@ -22,4 +37,11 @@ test("toggles dark mode", () => {
 
   // checks that the attributes have the proper value after button click
   expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
+});
+
+// not affecting lines tested right now
+test("default dark", () => {
+  render(<DarkMode />);
+  const inputElement = screen.getByRole("checkbox") as HTMLInputElement;
+  expect(inputElement.defaultChecked).toBe(false);
 });
