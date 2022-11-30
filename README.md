@@ -1,6 +1,6 @@
 # Javawockeez - Social Media
 ## A place where chef's and bakers can share there recipes and ideas!
-To access the delpoyed version, access our site (here)[http://javawockeez-social-react.s3-website-us-east-1.amazonaws.com/]. There, you can register and see what our community has created.
+To access the delpoyed version, access our site [here](http://javawockeez-social-react.s3-website-us-east-1.amazonaws.com/). There, you can register and see what our community has created.
 
 
 ## Getting Started with Create React App
