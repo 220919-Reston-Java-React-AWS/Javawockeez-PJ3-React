@@ -32,7 +32,7 @@ const submitQuestions = [userEmail, "question1", "answer1", "question2", "answer
 // mocking function of scrollTo
 window.scrollTo = jest.fn(); 
 
-beforeEach(async () => {
+beforeEach(() => {
     // setup a DOM element as a render target
     container = document.createElement("div");
     document.body.appendChild(container);
@@ -46,10 +46,10 @@ afterEach(() => {
     container = null;
 });
 
-test("Card Mounts correctly", async ()=>{
+test("Card Mounts correctly",async ()=>{
     // Render the component
-    act(() => {
-        render(<MemoryRouter>
+    await act(async () => {
+        await render(<MemoryRouter>
                 <ResetPasswordSubmit/>
             </MemoryRouter>, container);
       });
@@ -57,25 +57,40 @@ test("Card Mounts correctly", async ()=>{
 });
 
 test("Inputs exist", async ()=>{
-    let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
 
+    let element = await act(async () => {await render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
+    });
+
+    act(() => {
     const answerInput = screen.getAllByText("Answer");
     expect(answerInput).toBeDefined();
-
+    });
+    act(() => {
     const passwordInput = screen.getByText("New Password");
     expect(passwordInput).toBeDefined();
+    });
 });
 
-test("Submitting reset password request",async () =>{
-    let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
+test("Submitting reset password request", async () =>{
+
+    let element = await act(async () => {await render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
+    });
+    act(() => {
     mockSubmit.mockReturnValue({ status: 200, payload: submitQuestions })
+    });
     const submitButton = screen.getByRole("button");
-    fireEvent.click(submitButton)
+    await act(async () => {
+        await fireEvent.click(submitButton)
+    });
 });
 
 test("Submitting reset password request fail", async () =>{
-    let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
+    act(() => {
+        let element = render(<MemoryRouter><ResetPasswordSubmit/></MemoryRouter>, container);
+    });
     mockSubmit.mockReturnValue({ status: 400, payload: submitQuestions })
     const submitButton = screen.getByRole("button");
-    fireEvent.click(submitButton)
+    await act(async () => {
+        await fireEvent.click(submitButton)
+    });
 });
