@@ -103,6 +103,11 @@
     color: var(--font-color) !important;
   }
 
+  /* Mozilla Firefox css */
+  .MuiBox-root.css-czj4qr{
+    background-color: -var(--box-color) !important;
+  }
+
   /* tab text color */
   .MuiButtonBase-root.MuiTab-root.MuiTab-textColorPrimary{
     color: var(--font-color) !important;
@@ -125,6 +130,11 @@
 
   /* to remove the white space aroung the character limit text */
   .MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.css-yapd1y-MuiFormControl-root-MuiTextField-root{
+    background-color: var(--modal-box-bgcolor) !important;
+  }
+  
+  /* Mozilla firefox css - same issue above */
+  .MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.css-14jbrye{
     background-color: var(--modal-box-bgcolor) !important;
   }
 
