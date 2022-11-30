@@ -1,6 +1,15 @@
-export async function censor(text:string){
-    let censoredText:string;
 
+// Takes in a string, ands sends it to an external api to check for profanity. 
+// The censored content is then returned to the user.
+//
+// Only fifty requests per day are allowed with this API. If more traffic is needed in 
+// the future, another API should be used.
+// If the number of requests is exceeded, the string should be returned as-is.
+//
+// Found on https://rapidapi.com/collection/profanity-filter.
+//
+
+export async function censor(text:string){
     const axios = require("axios");
 
     const encodedParams = new URLSearchParams();
@@ -23,8 +32,6 @@ export async function censor(text:string){
         return response.data["censored-content"];
     }).catch(function (error:any) {
 	    console.error(error);
-        //return text;
+        return text;
     });
-
-    //return censoredText;
 }

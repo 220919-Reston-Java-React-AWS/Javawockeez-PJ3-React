@@ -22,23 +22,46 @@ import './Login.css'
 
 const theme = createTheme();
 
+// The login page for the site.
+// The user may either enter their email and password, or go to another page to register/reset password.
 export default function Login() {
+
+  //* ----------     VARIABLES     ---------- *//
+
+  // The hook for setting the current user in the application.
   const { setUser } = useContext(UserContext);
-
+  // Navigation to other pages within this site.
   const navigate = useNavigate();
-
+  // Error text. Appears if login is not successful, and details why.
   const [errText, setErrText] = useState("");
 
+
+  //* ----------     METHODS     ---------- *//
+
+  // Handle the submission of the login request. THe email and password are sent to the backend to be verified.
+  // If successful, the user is navigated to the main page.
+  // Otherwise, text appears detailing why (bad email/password)
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    // Prevent the page from refreshing
     event.preventDefault();
+    // Get the login data from the form.
     const data = new FormData(event.currentTarget);
+    
+    // Send the login request to the backend.
     const response = await apiLogin(`${data.get('email')}`, `${data.get('password')}`);
+
+    // React to the response.
     if (response.status >= 200 && response.status < 300) {
+      // If successful, save the user's information and go to the main page.
       setUser(response.payload);
       navigate('/');
+
     } else if (response.payload.message) {
+      // If there is an error message (presumably bad password or email) display the message on the page.
       setErrText("* " + response.payload.message)
+
     } else {
+      // Otherwise, something unexpected and irrecoverable has happened. This should not happen.
       alert('The system has encountered an unexpected error')
     }
   };
