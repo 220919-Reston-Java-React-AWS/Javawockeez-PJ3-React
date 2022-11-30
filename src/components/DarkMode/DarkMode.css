@@ -63,7 +63,7 @@
     background-color: var(--box-color) !important;
     color: var(--font-color);
   }
-
+  /*-----------dark mode elements for posts and homepage------------*/
   .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-qk52q6{
     background-color: var(--box-color) !important;
     color: var(--font-color);
@@ -103,6 +103,16 @@
   .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.css-nhwaex-MuiPaper-root{
     background-color: var(--form-box-color) !important;
     color: var(--font-color) !important;
+  }
+  /* Security Questions Select*/
+  .css-6j8wv5-Input{
+    opacity: 0 !important;
+    ;
+  }
+
+  /* Security Questions Dropdown*/
+  .react-select-3-listbox.css26l3qy-menu{
+    color: black !important;
   }
   
   /* Navigation Bar for Dark Mode */
