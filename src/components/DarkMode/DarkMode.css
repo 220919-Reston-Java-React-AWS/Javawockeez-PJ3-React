@@ -105,7 +105,7 @@
 
   /* Mozilla Firefox css */
   .MuiBox-root.css-czj4qr{
-    background-color: -var(--box-color) !important;
+    background-color: var(--box-color)!important;
   }
 
   /* tab text color */

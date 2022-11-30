@@ -461,7 +461,7 @@ const handleTextInputAnswer3 = (event:any) => {
                                         <TextField fullWidth 
                                             multiline rows={5} 
                                             id="inputAboutMe" 
-                                            label="AboutMeModal" 
+                                            label="About Me Text" 
                                             defaultValue= {profile?.about} 
                                             sx={{bgcolor:'white', color:'black'}}
                                             helperText='Character Limit: 255'

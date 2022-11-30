@@ -276,7 +276,7 @@ test('insert text in update about me modal in settings tab', ()=>{
     expect(screen.getByText("Insert what you want your 'About Me' to be."))
 
     //find the input text field and change value
-    const inputField = screen.getByLabelText(/^AboutMeModal/i);
+    const inputField = screen.getByLabelText(/^About Me Text/i);
     fireEvent.change(inputField, { target: { value: 'This is a new about me' } });
     expect(inputField.value).toBe('This is a new about me');
 
