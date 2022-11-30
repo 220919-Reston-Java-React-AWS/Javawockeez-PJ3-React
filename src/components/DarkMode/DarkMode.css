@@ -63,6 +63,20 @@
     background-color: var(--box-color) !important;
     color: var(--font-color);
   }
+  /*-----------dark mode elements for posts and homepage------------*/
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-qk52q6{
+    background-color: var(--box-color) !important;
+    color: var(--font-color);
+  }
+
+  .MuiCardMedia-root.MuiCardMedia-media.MuiCardMedia-img.css-1l5xtlx-MuiCardMedia-root{
+    background-color: var(--box-color) !important;
+    color: var(--font-color);
+  }
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiCard-root.css-fswqvm-MuiPaper-root-MuiCard-root{
+    background-color: var(--box-color) !important;
+    color: var(--font-color);
+  }
 
   .MuiButtonBase-root.MuiIconButton-root.MuiIconButton-sizeMedium.sc-bcXHqe.bxwIt.css-78trlr-MuiButtonBase-root-MuiIconButton-root{
     color: var(--font-secondary)
@@ -90,6 +104,20 @@
     background-color: var(--form-box-color) !important;
     color: var(--font-color) !important;
   }
+  /* Security Questions Select*/
+  .css-6j8wv5-Input{
+    opacity: 0 !important;
+    background-color: white !important;
+    z-index: 1 !important;
+  }
+
+  /* Security Questions Dropdown*/
+  .react-select-3-listbox.css26l3qy-menu{
+    opacity: 1 !important;
+    background-color: white !important;
+    color: black !important;
+    z-index: 1 !important;
+  }
   
   /* Navigation Bar for Dark Mode */
   .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorTransparent.MuiAppBar-positionStatic.css-v526sl-MuiPaper-root-MuiAppBar-root{
@@ -97,10 +125,21 @@
       box-shadow: 0px 2px 4px -1px var(--shadow-color-1),0px 4px 5px 0px var(--shadow-color-2),0px 1px 10px 0px var(--shadow-color-3) !important;
   }
 
+  /* Navigation Bar Shadow for firefox */
+  .MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorTransparent.MuiAppBar-positionStatic.css-qixh7c{
+    background-color: var(--navbar-color) !important;
+    box-shadow: 0px 2px 4px -1px var(--shadow-color-1),0px 4px 5px 0px var(--shadow-color-2),0px 1px 10px 0px var(--shadow-color-3) !important;
+  }
+
   /* Navigation Tabs CSS */
   .MuiTabs-scroller.MuiTabs-hideScrollbar.MuiTabs-scrollableY.css-1cgx7kx-MuiTabs-scroller{
     background-color: var(--box-color) !important;
     color: var(--font-color) !important;
+  }
+
+  /* Mozilla Firefox css */
+  .MuiBox-root.css-czj4qr{
+    background-color: var(--box-color)!important;
   }
 
   /* tab text color */
@@ -125,6 +164,11 @@
 
   /* to remove the white space aroung the character limit text */
   .MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.css-yapd1y-MuiFormControl-root-MuiTextField-root{
+    background-color: var(--modal-box-bgcolor) !important;
+  }
+  
+  /* Mozilla firefox css - same issue above */
+  .MuiFormControl-root.MuiFormControl-fullWidth.MuiTextField-root.css-14jbrye{
     background-color: var(--modal-box-bgcolor) !important;
   }
 

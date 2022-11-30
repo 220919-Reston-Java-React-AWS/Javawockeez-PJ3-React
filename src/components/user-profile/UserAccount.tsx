@@ -21,6 +21,13 @@ import Account from '../../models/Account';
 import { apiPatchAccountData } from '../../remote/social-media-api/account.api';
 import sampleQuestionsModel from '../../models/SampleQuestionsModel';
 
+const selectStyles = {
+    menu: (base: any) => ({
+      ...base,
+      zIndex: 100,
+      color: 'black'
+    })
+  };
 
 export default function UserAccount(){
     //------- States
@@ -461,7 +468,7 @@ const handleTextInputAnswer3 = (event:any) => {
                                         <TextField fullWidth 
                                             multiline rows={5} 
                                             id="inputAboutMe" 
-                                            label="AboutMeModal" 
+                                            label="About Me Text" 
                                             defaultValue= {profile?.about} 
                                             sx={{bgcolor:'white', color:'black'}}
                                             helperText='Character Limit: 255'
@@ -566,6 +573,7 @@ const handleTextInputAnswer3 = (event:any) => {
                                         getOptionLabel={option => option!.question}
                                         onChange={handleChange1}
                                         aria-label="selectQuestion1"
+                                        styles={selectStyles}
                                         />
                                     </Box>
 
@@ -587,6 +595,7 @@ const handleTextInputAnswer3 = (event:any) => {
                                         getOptionLabel={option => option!.question}
                                         onChange={handleChange2}
                                         aria-label="selectQuestion2"
+                                        styles={selectStyles}
                                         />
                                     </Box>
 
@@ -608,6 +617,7 @@ const handleTextInputAnswer3 = (event:any) => {
                                         getOptionLabel={option => option!.question}
                                         onChange={handleChange3}
                                         aria-label="selectQuestion3"
+                                        styles={selectStyles}
                                         />
                                     </Box>
 
