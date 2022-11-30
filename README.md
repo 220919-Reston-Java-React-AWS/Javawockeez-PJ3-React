@@ -8,6 +8,45 @@ To access the delpoyed version, access our site [here](http://javawockeez-social
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 To run this on your own machine, simply download the code and its dependencies.
 
+### Additional Scripts
+Below is a list of the dependencies for this application.\
+- @emotion/react@11.10.4
+- @emotion/styled@11.10.4
+- @mui/icons-material@5.10.9
+- @mui/material@5.10.10
+- @mui/styled-engine-sc@5.10.6
+- @testing-library/jest-dom@5.16.5
+- @testing-library/react@13.4.0
+- @testing-library/user-event@13.5.0
+- @types/jest@27.5.2
+- @types/node@16.11.66
+- @types/react-dom@18.0.6
+- @types/react-router-dom@5.3.3
+- @types/react@18.0.21
+- @types/styled-components@5.1.26
+- axios@0.27.2
+- react-dom@18.2.0
+- react-router-dom@6.4.2
+- react-scripts@5.0.1
+- react-select@5.6.1
+- react@18.2.0
+- reactjs-popup@2.0.5
+- styled-components@5.3.6
+- typescript@4.8.4
+- url-loader@4.1.1
+- use-local-storage@2.3.6
+- web-vitals@2.1.4
+
+To install them, run
+```
+npm i {package-name}
+```
+For instance, to install the pop-up windows from react-js-popup, run
+```
+npm i reactjs-popup
+```
+in the terminal. This project used the current version for all these packages, but you may specify a version if you wish, visit [here](https://docs.npmjs.com/cli/v6/commands/npm-install) for more information.
+
 ### Available Scripts
 
 In the project directory, you can run:
