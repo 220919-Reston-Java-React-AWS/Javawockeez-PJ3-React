@@ -1,9 +1,7 @@
-import {render, screen} from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import React from 'react'
+import {render} from '@testing-library/react'
 import '@testing-library/jest-dom'
 import {AppRoutes} from '../AppRoutes'
-import {BrowserRouter, MemoryRouter} from 'react-router-dom'
+import {MemoryRouter} from 'react-router-dom'
 
 
 /************ Any Required Set Up or Mocking to be done ************/

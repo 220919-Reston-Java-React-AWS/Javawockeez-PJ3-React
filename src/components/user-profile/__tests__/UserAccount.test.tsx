@@ -3,12 +3,8 @@ import { render, screen, fireEvent, queryByAttribute, within } from "@testing-li
 import { UserContext } from "../../../context/user.context";
 import '@testing-library/jest-dom'
 
-const getById = queryByAttribute.bind(null, 'id');
-
-
 // the actual component we're testing
 import UserAccount from '../UserAccount';
-import { toggleButtonClasses } from '@mui/material';
 
 
 /************ Any Required Set Up or Mocking to be done ************/
@@ -39,23 +35,6 @@ jest.mock('react-router-dom', () => ({
 afterAll(() => {
     jest.clearAllMocks;
 })
-
-
-/************ Tests Below Here ************/
-
-
-// basic test to see if the component renders
-test('render UserAccount component', ()=>{
-    render(<UserAccount/>);
-});
-
-// test if the NavBar component rendered
-test('render NavBar component', ()=>{
-    render(<UserAccount/>);
-
-    expect(document.getElementsByTagName('NavBar'));
-});
-
 
 /****** Switch Tabs Tests *****/
 
@@ -427,7 +406,7 @@ test('open update security questions modal in settings tab', ()=>{
 })
 
 // test - enter settings tab, security update modal, insert text and click update
-test('insert text in update account modal in settings tab', ()=>{
+test('insert text in update security questions in settings tab', ()=>{
     // The userContext in which to run the element (essentially, the credentials to 'sign-in' the test user)
     const usrContext = {
         user: user,

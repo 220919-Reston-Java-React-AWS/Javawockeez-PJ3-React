@@ -32,9 +32,42 @@ beforeEach(() => {
 
     window.scrollTo = jest.fn();
 
-    mockQ1.mockReturnValue(["q1", "q2", "q3"])
-    mockQ2.mockReturnValue(["q4", "q5", "q6"])
-    mockQ3.mockReturnValue(["q7", "q8", "q9"])
+    mockQ1.mockReturnValue({payload: [{
+            "id": 1,
+            "question": "In what city were you born?"
+        },
+        {
+            "id": 3,
+            "question": "What is your mother's maiden name?"
+        },
+        {
+            "id": 2,
+            "question": "What is the name of your favorite pet?"
+        }]});
+    mockQ2.mockReturnValue({payload: [{
+            "id": 1,
+            "question": "What high school did you attend?"
+        },
+        {
+            "id": 2,
+            "question": "What was the name of your elementary school?"
+        },
+        {
+            "id": 3,
+            "question": "What was the make of your first car?"
+        }]});
+    mockQ3.mockReturnValue({payload: [{
+            "id": 1,
+            "question": "What was your favorite food as a child?"
+        },
+        {
+            "id": 2,
+            "question": "Where did you meet your spouse?"
+        },
+        {
+            "id": 3,
+            "question": "What year was your father (or mother) born?"
+        }]});
     mockRegister.mockReturnValue({status:200, payload:user})
 });
 
@@ -68,14 +101,19 @@ test("Click options for questions", async()=>{
 
     const questionBoxes = screen.getAllByRole("combobox")
     
-    const q1Box = questionBoxes[0]
-    const q2Box = questionBoxes[1]
-    const q3Box = questionBoxes[2]
+    let q1Box = questionBoxes[0]
+    let q2Box = questionBoxes[1]
+    let q3Box = questionBoxes[2]
 
-    await act(async ()=>{
-        await fireEvent.click(q1Box);
-        await fireEvent.click(q2Box);
-        await fireEvent.click(q3Box);
+    act(()=>{
+        // Change the first dropdown to the second option
+        fireEvent.change(q1Box, { target: { value: 2 } });
+
+        // Change the second dropdown to the second option
+        fireEvent.change(q2Box, { target: { value: 2 } });
+
+        // Change the third dropdown to the second option
+        fireEvent.change(q3Box, { target: { value: 2 } });
     });
 });
 
@@ -93,8 +131,9 @@ test("Submit Registration", async()=>{
     const password = screen.getByLabelText("Password", {exact:false});
     const answers = screen.getAllByLabelText("Answer", {exact:false});
 
-    const submitButton = screen.getByRole("button")
+    const submitButton = screen.getByRole("button") // Submit button
 
+    // Input data
     await act(async() => {
         fireEvent.input(firstName, {target: {value: user.firstName} as HTMLInputElement });
         fireEvent.input(lastName, {target: {value: user.lastName} as HTMLInputElement });
@@ -104,7 +143,47 @@ test("Submit Registration", async()=>{
         answers.forEach(element => {
             fireEvent.input(element, {target: {value: "Test"} as HTMLInputElement });
         });
+    });
 
+    // Submit
+    await act(async()=>{
+        await fireEvent.click(submitButton)
+    });
+});
+
+test("Submit Registration Fail", async()=>{
+    // Change the return from the backend on registration to a fail
+    mockRegister.mockReturnValue({status:400})
+
+    // Render the component
+    await act(async() => {
+        await render(<MemoryRouter>
+                <Register/>
+            </MemoryRouter>, container);
+    });
+
+    const firstName = screen.getByLabelText("First Name", {exact:false});
+    const lastName = screen.getByLabelText("Last Name", {exact:false});
+    const email = screen.getByLabelText("Email Address", {exact:false});
+    const password = screen.getByLabelText("Password", {exact:false});
+    const answers = screen.getAllByLabelText("Answer", {exact:false});
+
+    const submitButton = screen.getByRole("button") // Submit button
+
+    // Input data
+    await act(async() => {
+        fireEvent.input(firstName, {target: {value: user.firstName} as HTMLInputElement });
+        fireEvent.input(lastName, {target: {value: user.lastName} as HTMLInputElement });
+        fireEvent.input(email, {target: {value: user.email} as HTMLInputElement });
+        fireEvent.input(password, {target: {value: "password"} as HTMLInputElement });
+
+        answers.forEach(element => {
+            fireEvent.input(element, {target: {value: "Test"} as HTMLInputElement });
+        });
+    });
+
+    // Submit
+    await act(async()=>{
         await fireEvent.click(submitButton)
     });
 });

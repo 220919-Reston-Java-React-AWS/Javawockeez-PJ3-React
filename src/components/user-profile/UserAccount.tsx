@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Container, Grid, Button, Avatar, Modal } from '@mui/material';
-import Navbar from '../navbar/Navbar';
+import { Box, Grid, Button, Modal } from '@mui/material';
 import Post from '../../models/Post';
-import { apiGetAllPosts } from '../../remote/social-media-api/postFeed.api';
 import { useContext } from 'react';
-import { User } from '../../context/user.context';
 import TextField from '@mui/material/TextField';
-import { apiUpsertPost } from '../../remote/social-media-api/post.api';
-import { apiGetAllPostsById, apiGetUserProfileName, apiGetProfileByUserId, apiPatchProfileData, apiUpdateQuestionsById, apiAuthSampleQuestions1, apiAuthSampleQuestions2, apiAuthSampleQuestions3 } from '../../remote/social-media-api/profile.api';
+import { apiGetAllPostsById, apiGetProfileByUserId, apiPatchProfileData, apiUpdateQuestionsById, apiAuthSampleQuestions1, apiAuthSampleQuestions2, apiAuthSampleQuestions3 } from '../../remote/social-media-api/profile.api';
 import { PostCard } from '../post-feed/PostCard';
 import Select from 'react-select';
 import Tabs from '@mui/material/Tabs';
@@ -278,6 +274,9 @@ export default function UserAccount(){
     const handleTextInputPasswordChange = (event:any) => {
         setTextInputPassword(event.target.value);
     };
+
+    
+    /** Security Questions content below */
 
     //get sample questions1
   const getSampleQuestions1 = async () => {
