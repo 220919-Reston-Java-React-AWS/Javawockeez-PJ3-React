@@ -5,7 +5,6 @@ import { UserContext } from "../../../context/user.context";
 // the component we're testing on
 import UserProfile from '../UserProfile';
 
-import * as 
 
 /************ Any Required Set Up or Mocking to be done ************/
 

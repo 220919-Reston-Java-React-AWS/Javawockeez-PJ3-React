@@ -275,6 +275,9 @@ export default function UserAccount(){
         setTextInputPassword(event.target.value);
     };
 
+    
+    /** Security Questions content below */
+
     //get sample questions1
   const getSampleQuestions1 = async () => {
     const result = await apiAuthSampleQuestions1()
