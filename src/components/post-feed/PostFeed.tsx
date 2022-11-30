@@ -11,7 +11,7 @@ import {censor} from "../../remote/profanity-api/profanity.api"
 // Essentially the main page. This component renders a list of posts/comments for the user to see
 export const PostFeed = () => {
 
-    //*----- Variables -----*//
+    //* ----------    VARIABLES     ---------- *//
 
     // The list of posts
     const [posts, setPosts] = useState<Post[]>([])
@@ -25,7 +25,7 @@ export const PostFeed = () => {
     let noPostsText = <></>;
 
 
-    //*----- Methods -----*//
+    //* ----------     METHODS     ---------- *//
 
     // What to do when a new post is submitted.
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -62,7 +62,7 @@ export const PostFeed = () => {
     }
 
 
-    //*----- Effects -----*//
+    //* ----------     EFFECTS     ---------- *//
 
     // Initializing
     useEffect(() => {
@@ -74,7 +74,7 @@ export const PostFeed = () => {
     }, []);
     
 
-    //*----- Setting content -----*//
+    //* ----------     SET CONTENT     ---------- *//
 
     // What to do if the user is signed in.
     if (user) {
@@ -120,7 +120,7 @@ export const PostFeed = () => {
     }
     
 
-    //*----- Return -----*//
+    //* ----------     RETURN     ---------- *//
 
     return (
         <>
