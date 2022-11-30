@@ -15,8 +15,16 @@ import { apiAuthSampleQuestions1, apiAuthSampleQuestions2, apiAuthSampleQuestion
 import { useState } from 'react';
 import sampleQuestionsModel from '../../models/SampleQuestionsModel';
 import Select from 'react-select';
+import { isFunctionOrConstructorTypeNode } from 'typescript';
 
 
+const selectStyles = {
+  menu: (base: any) => ({
+    ...base,
+    zIndex: 100,
+    color: 'black'
+  })
+};
 const theme = createTheme();
 
 export default function Register() {
@@ -137,6 +145,7 @@ export default function Register() {
                 options={questions1}
                 getOptionLabel={option => option!.question}
                 onChange={handleChange1}
+                styles={selectStyles}
                 />
               </Grid>
             
@@ -158,6 +167,7 @@ export default function Register() {
                 options={questions2}
                 getOptionLabel={option => option!.question}
                 onChange={handleChange2}
+                styles={selectStyles}
                 />
               </Grid>
             <Grid item xs={12}>
@@ -178,6 +188,7 @@ export default function Register() {
                 options={questions3}
                 getOptionLabel={option => option!.question}
                 onChange={handleChange3}
+                styles={selectStyles}
                 />
               </Grid>
             <Grid item xs={12}>

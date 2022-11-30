@@ -107,12 +107,16 @@
   /* Security Questions Select*/
   .css-6j8wv5-Input{
     opacity: 0 !important;
-    ;
+    background-color: white !important;
+    z-index: 1 !important;
   }
 
   /* Security Questions Dropdown*/
   .react-select-3-listbox.css26l3qy-menu{
+    opacity: 1 !important;
+    background-color: white !important;
     color: black !important;
+    z-index: 1 !important;
   }
   
   /* Navigation Bar for Dark Mode */
