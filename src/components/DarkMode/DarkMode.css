@@ -135,6 +135,11 @@
     background-color: white !important;
     z-index: 1 !important;
   }
+  .css-ackcql{
+    opacity: 0 !important;
+    background-color: white !important;
+    z-index: 1 !important;
+  }
 
   /* Security Questions Dropdown*/
   .react-select-3-listbox.css26l3qy-menu{
