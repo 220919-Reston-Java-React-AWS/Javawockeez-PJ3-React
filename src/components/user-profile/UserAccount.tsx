@@ -313,7 +313,6 @@ const handleTextInputAnswer3 = (event:any) => {
 
   //---------Update Security Questions Event
   const updateSecurityQuestions = async(event: React.SyntheticEvent) => {
-    event.preventDefault();
 
     let id:string;
     let question1:string;
