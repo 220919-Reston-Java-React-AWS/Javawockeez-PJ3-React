@@ -8,8 +8,8 @@ To access the delpoyed version, access our site [here](http://javawockeez-social
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 To run this on your own machine, simply download the code and its dependencies.
 
-### Additional Scripts
-Below is a list of the dependencies for this application.\
+### Additional Packages
+Below is a list of the dependencies for this application.
 - @emotion/react@11.10.4
 - @emotion/styled@11.10.4
 - @mui/icons-material@5.10.9

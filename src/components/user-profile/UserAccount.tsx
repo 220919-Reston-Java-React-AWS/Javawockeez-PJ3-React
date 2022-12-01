@@ -333,9 +333,9 @@ const handleTextInputAnswer3 = (event:any) => {
     //set response information
     const response = await apiUpdateQuestionsById(id, question1, answer1, question2, answer2, question3, answer3)
     //reset info
-    if (response.status >= 200 && response.status < 300) {
-        setUser(response.payload);
-    }
+    // if (response.status >= 200 && response.status < 300) {
+    //     setUser(response.payload);
+    // }
 
     // refresh the profile data form update
     fetchPostData()
