@@ -331,16 +331,10 @@ const handleTextInputAnswer3 = (event:any) => {
     answer3 = String(textAnswer3 !== "" ? textAnswer3 : '');
     //set response information
     const response = await apiUpdateQuestionsById(id, question1, answer1, question2, answer2, question3, answer3)
-    // //reset info
-    // if (response.status >= 200 && response.status < 300) {
-    //     //setUser(response.payload);
-        
-    //     fetchProfileData()
-    // }
 
-    // // refresh the profile data form update
-    // fetchPostData()
-    // fetchProfileData()
+    // refresh the profile data form update
+    fetchPostData()
+    fetchProfileData()
 
     //close modal
     handleClose4()
