@@ -47,6 +47,14 @@ npm i reactjs-popup
 ```
 in the terminal. This project used the current version for all these packages, but you may specify a version if you wish, visit [here](https://docs.npmjs.com/cli/v6/commands/npm-install) for more information.
 
+
+### Setting Up the Server Connection
+
+In the src/remote/social-media-api folder, we need to change the socialClient.ts file to point to the backend server.
+
+1. Edit the 'Access-Control-Allow-Origin' property under 'headers' to contain the URL of the backend Spring server. (ex. 'Access-Control-Allow-Origin': 'http://localhost:8080') 
+
+
 ### Available Scripts
 
 In the project directory, you can run:
@@ -85,3 +93,4 @@ Tests all available tests in the project, and displays the coverage. Included is
 	- Functions
 	- Lines
 - All Untested Lines in the tested module
+ 
