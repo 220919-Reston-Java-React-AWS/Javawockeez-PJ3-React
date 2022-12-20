@@ -1,4 +1,11 @@
 # Javawockeez - Social Media
+
+## Portfolio Description
+
+It is a social media website where registered users may share their recipes and ideas. Users will also be able to comment on other's posts, navigate through users' profiles, and customize their own on the site. In addition, users will be able to remove their own posts and comments as desired. Users will be able set the theme of the website by toggling the dark mode setting. This will consist of coding via React and the Spring Framework. With React, we plan to utilize Material UI, CSS, and TSX. The Java Spring will consist of using Hibernate, JDBC, and Spring. Additionally, the project will feature a Rest API. This will be deployed on the web using Amazon Web Services (AWS). From AWS, the project uses Elastic BeanStalk, CodePipeline, S3, CodeBuild, EC2, and the project's database is hosted on a PostgreSQL RDS.
+
+---
+
 ## A place where chef's and bakers can share there recipes and ideas!
 To access the delpoyed version, access our site [here](http://javawockeez-social-react.s3-website-us-east-1.amazonaws.com/). There, you can register and see what our community has created.
 
